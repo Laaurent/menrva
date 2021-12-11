@@ -15,7 +15,7 @@
                         @endif
 
                         {{ __('You are logged in!') }}
-                        <example-component></example-component>
+                        <button-component text="test" type="primary"></button-component>
                     </div>
                 </div>
             </div>
