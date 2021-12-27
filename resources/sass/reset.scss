@@ -1,0 +1,46 @@
+@font-face {
+    font-family: RobotoBold;
+    src: url('../font/Roboto-Bold.ttf'); // remember that font file path must be relative to the current css file. not the final compiled folder
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: Roboto;
+    src: url('../font/Roboto-Medium.ttf'); // remember that font file path must be relative to the current css file. not the final compiled folder
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: RobotoThin;
+    src: url('../font/Roboto-Thin.ttf'); // remember that font file path must be relative to the current css file. not the final compiled folder
+    font-weight: thin;
+    font-style: normal;
+}
+
+a{
+    color: $mydarkgrey;
+    text-decoration: underline;
+}
+
+h1{
+    font-family: RobotoBold;
+    font-size: 36px;
+    line-height: 42px;
+}
+
+h3{
+    font-family: Roboto;
+    color: $mydarkgrey;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+body{
+    font-family: Roboto;
+}
+
+main{
+    padding: 0 64px;
+}
