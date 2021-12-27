@@ -1,0 +1,60 @@
+main{
+    padding: 0 0px;
+}
+.container-auth{
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    div{
+        &.side-block{
+            flex: 1;
+            background-color: $myprimary;
+            height: 100%;
+            width: 100%;
+        }
+        &.main-block{
+            flex: 2;
+            height: auto;
+        }
+    }
+    .log-container{
+        margin: 0 auto;
+        text-align: center;  
+        min-width: 280px;
+        max-width: 340px;
+        img{
+            margin: 0 auto;
+        }
+        .forgot-password{
+            font-size:13px
+        }
+    }
+}
+.logo_container{
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+    .container-auth{
+        height: 90vh;
+        flex-direction: column;
+        div{
+           
+            &.side-block{
+                display:none;
+            }
+            &.main-block{ 
+                flex: none;
+               /*  height: auto; */
+            }
+      }
+    }
+    .logo_container{
+        display: block;
+        img{
+            margin: 0 auto;
+        }
+    }
+}
