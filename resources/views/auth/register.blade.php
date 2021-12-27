@@ -16,6 +16,21 @@
                     @csrf
 
                     <div class="input-form mb-3">
+                        <div id="radio">
+                            <div id="container-input-radio" class="container-input">
+                                <input id="radio-1" class="radios" type="radio" name="user_type_id" value="1"
+                                    checked>
+                                <label id="label-radio-1" class="label-radio" for="radio-1">Étudiant</label>
+
+                                <input id="radio-2" class="radios" type="radio" name="user_type_id" value="2">
+                                <label id="label-radio-2" class="label-radio" for="radio-2">Professionnel</label>
+
+                                <div id="btn-radio"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-form mb-3">
                         <label for="name" class="mylabel">Nom</label>
 
                         <div>

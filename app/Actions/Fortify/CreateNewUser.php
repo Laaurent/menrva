@@ -29,10 +29,16 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => $this->passwordRules(),
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'required'  => 'Ce champ est obligatoire.',
+            'unique'    => 'L\'email est déjà utilisé.',
+            'min'     => 'Le mot de passe doit au moins contenir 8 caractères',
+            'confirmed'     => 'Le mot de passe ne correspond pas'
         ])->validate();
 
         return User::create([
+            'user_type_id' => $input['user_type_id'],
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
