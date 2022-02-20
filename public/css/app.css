@@ -13116,6 +13116,22 @@ main {
   left: 185px;
 }
 
+.container-app {
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+}
+.container-app div.side-block {
+  flex: 1;
+  background-color: #286BEE;
+  height: 100%;
+  width: 100%;
+}
+.container-app div.main-block {
+  flex: 5;
+  height: auto;
+}
+
 .input-form {
   text-align: left;
 }

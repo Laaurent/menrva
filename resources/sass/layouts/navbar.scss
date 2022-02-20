@@ -1,0 +1,17 @@
+.container-app{
+    height: 100vh;
+    justify-content: center;
+    display: flex;
+    div{
+        &.side-block{
+            flex: 1;
+            background-color: $myprimary;
+            height: 100%;
+            width: 100%;
+        }
+        &.main-block{
+            flex: 5;
+            height: auto;
+        }
+    }
+}

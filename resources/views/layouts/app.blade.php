@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        @if (!isset($navbar))
+        {{-- @if (!isset($navbar))
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -81,10 +81,15 @@
                     </div>
                 </div>
             </nav>
-        @endif
-
+        @endif --}}
         <main class="py-4">
-            @yield('content')
+            <div class="container-app">
+                <div class="side-block">
+                    @yield('navbar')
+                </div>
+                <div class="main-block">
+                    @yield('content')
+                </div>
         </main>
     </div>
 </body>
