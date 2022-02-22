@@ -15,12 +15,30 @@ use App\Http\Controllers\Auth\VerificationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->name('welcome');
 
 Route::get('/home', function () {
     return view('home');
-})->name('home')->middleware('auth', 'verified');
+})->name('home');
+
+Route::get('/proposer', function () {
+    return view('home');
+})->name('propound')->middleware('auth');
+
+Route::get('/rechercher', function () {
+    return view('home');
+})->name('search');
+
+Route::get('/profil', function () {
+    return view('home');
+})->name('profil')->middleware('auth');
+
+Route::get('/parametres', function () {
+    return view('home');
+})->name('settings')->middleware('auth');
+
+
 
 /* Route::get('test', function () {
     return 'Vue de test';

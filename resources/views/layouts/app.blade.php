@@ -82,16 +82,28 @@
                 </div>
             </nav>
         @endif --}}
-        <main class="py-4">
+        <main>
             <div class="container-app">
-                <div class="side-block">
-                    @yield('navbar')
+                <div class="side-block" id="side-block">
+                    @include('layouts.navbar')
                 </div>
                 <div class="main-block">
+                    @include('layouts.header')
                     @yield('content')
                 </div>
         </main>
     </div>
+    <script type='text/javascript'>
+        function myClose() {
+            let navigation = document.getElementById("side-block");
+            navigation.style.display = "none";
+        }
+
+        function myOpen() {
+            let navigation = document.getElementById("side-block");
+            navigation.style.display = "block";
+        }
+    </script>
 </body>
 
 </html>

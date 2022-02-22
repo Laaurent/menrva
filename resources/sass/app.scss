@@ -8,8 +8,6 @@
 
 // Variables
 @import 'variables';
-// Icons
-@import 'coolicons';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 // RESET 
@@ -19,9 +17,13 @@
 // APP Blade
 @import './layouts/navbar.scss';
 
+@import './layouts/header.scss';
 
 
 
+.main-block{
+    padding: 32px;
+}
 
 .input-form{
         text-align: left;

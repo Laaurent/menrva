@@ -5,6 +5,7 @@
  */
 
 require("./bootstrap");
+require("./navbar.js");
 
 window.Vue = require("vue").default;
 

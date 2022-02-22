@@ -4,14 +4,87 @@
     display: flex;
     div{
         &.side-block{
-            flex: 1;
-            background-color: $myprimary;
+           /*  flex: 1; */
+           /* position: fixed; */
+            background-color: $mygrey;
             height: 100%;
-            width: 100%;
+            width: 261px;
         }
         &.main-block{
-            flex: 5;
+            flex: 1;
             height: auto;
+        }
+    }
+}
+
+.nav-container{
+    height: 100vh;
+    display: flex;
+    padding: 30px 50px;
+    flex-direction: column;
+    justify-content: space-between;
+    .nav-container_item{
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        .nav-container_item_header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-container_part{
+            li{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                list-style: none;
+                &.nav-link-item{
+                    .nav-link-item_content{
+                        padding: 4px 8px;
+                        width: 136px;
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                        a{
+                            text-decoration: none;
+                            color: $black;
+                        }
+                    }
+                }
+
+                &.isactive{
+                    .nav-link-item_content{     
+                        background-color:$myprimary;
+                        border-radius: 4px;
+                        color: $white;
+                        a{   
+                            color: white; 
+                        }
+                    }
+                    .nav-link-item_point{
+                        background-color:$myprimary;
+                        border-radius: 4px;
+                        margin: 8px;
+                        width: 8px;
+                        height: 8px;
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .side-block{
+        display: none;
+    }
+    .container-app{
+        display: block;
+        .side-block{
+            position: absolute;
+            position: flex;
         }
     }
 }
