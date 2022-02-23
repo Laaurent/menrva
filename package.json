@@ -26,6 +26,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "pnpm": "^6.32.0"
+        "@coolicons/vue": "^1.0.6",
+        "pnpm": "^6.32.0",
+        "vue-coolicons": "^1.2.3"
     }
 }

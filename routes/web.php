@@ -16,28 +16,34 @@ use App\Http\Controllers\Auth\VerificationController;
 
 Route::get('/', function () {
     return view('home');
-})->name('welcome');
-
-Route::get('/home', function () {
-    return view('home');
 })->name('home');
-
-Route::get('/proposer', function () {
-    return view('home');
-})->name('propound')->middleware('auth');
 
 Route::get('/rechercher', function () {
     return view('home');
 })->name('search');
 
+// A DELETE
+
 Route::get('/profil', function () {
-    return view('home');
-})->name('profil')->middleware('auth');
+    return view('pages.user');
+})->name('profil');
 
 Route::get('/parametres', function () {
     return view('home');
-})->name('settings')->middleware('auth');
+})->name('settings');
 
+Route::group(
+    ['middleware' => 'auth'],
+    function () {
+        /* Route::get('/profil', function () {
+            return view('pages.user');
+        })->name('profil');
+ */
+        /*  Route::get('/parametres', function () {
+            return view('home');
+        })->name('settings'); */
+    }
+);
 
 
 /* Route::get('test', function () {

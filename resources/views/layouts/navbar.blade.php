@@ -1,4 +1,4 @@
-    <div class="nav-container" >
+    <div class="nav-container">
         <div class="nav-container_item">
             <div class="nav-container_item_header">
                 <div class="nav-container_item_header_logo">Logo</div>
@@ -8,10 +8,10 @@
             </div>
 
             <ul class="nav-container_part">
-                <li class="nav-link-item @if (request()->routeIs('propound')) isactive @endif">
+                <li class="nav-link-item @if (request()->routeIs('home')) isactive @endif">
                     <div class="nav-link-item_content">
-                        <x-coolicon-search /><a href="{{ route('propound') }}">
-                            Proposer
+                        <x-coolicon-home-outline /><a href="{{ route('home') }}">
+                            Accueil
                         </a>
                     </div>
                     <div class="nav-link-item_point"></div>
@@ -24,6 +24,7 @@
                     </div>
                     <div class="nav-link-item_point"></div>
                 </li>
+                {{-- @if (Auth::check()) --}}
                 <li>
                     <hr>
                 </li>
@@ -35,11 +36,13 @@
                     </div>
                     <div class="nav-link-item_point"></div>
                 </li>
+                {{-- @endif --}}
             </ul>
         </div>
 
         <div class="nav-container_item">
             <ul class="nav-container_part">
+                {{-- @if (Auth::check()) --}}
                 <li class="nav-link-item @if (request()->routeIs('settings')) isactive @endif">
                     <div class="nav-link-item_content">
                         <x-coolicon-settings /><a href="{{ route('settings') }}">
@@ -48,6 +51,7 @@
                     </div>
                     <div class="nav-link-item_point"></div>
                 </li>
+                {{-- @endif --}}
             </ul>
         </div>
     </div>

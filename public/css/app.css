@@ -11318,6 +11318,11 @@ h1, .h1 {
   line-height: 42px;
 }
 
+h2, .h2, h6, .h6 {
+  margin: 0;
+  padding: 0;
+}
+
 h3, .h3 {
   font-family: Roboto;
   color: #7A868C;
@@ -11325,6 +11330,22 @@ h3, .h3 {
   font-weight: normal;
   font-size: 24px;
   line-height: 28px;
+}
+
+h4, .h4 {
+  font-family: Roboto;
+  color: #102347;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+h6, .h6 {
+  color: #7A868C;
+  font-size: 12px;
+  line-height: 28px;
+  letter-spacing: 1.5px;
 }
 
 body {
@@ -11376,7 +11397,7 @@ main {
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
   /* For mobile phones: */
   .container-auth {
     height: 90vh;
@@ -11522,7 +11543,7 @@ main {
   height: 8px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
   .side-block {
     display: none;
   }
@@ -11543,7 +11564,8 @@ main {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
+  height: 100px;
 }
 .header-container .open-menu {
   display: none;
@@ -11554,9 +11576,41 @@ main {
   align-items: center;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
   .header-container .open-menu {
     display: block;
+  }
+}
+.user-container {
+  display: flex;
+}
+.user-container .user-container__content {
+  flex: 1;
+}
+.user-container .user-container__side {
+  width: 200px;
+}
+
+.user-container__content .user-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.user-container__content .user-cards-container .user-cards_row {
+  display: flex;
+  gap: 64px;
+}
+
+@media only screen and (max-width: 900px) {
+  .user-container .user-container__content .user-cards-container {
+    gap: 16px;
+  }
+  .user-container .user-container__content .user-cards-container .user-cards_row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .user-container .user-container__side {
+    display: none;
   }
 }
 .main-block {
