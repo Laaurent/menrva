@@ -11495,6 +11495,8 @@ main {
   padding: 30px 50px;
   flex-direction: column;
   justify-content: space-between;
+  position: fixed;
+  background-color: #FFFFFF;
 }
 .nav-container .nav-container_item {
   display: flex;
@@ -11556,8 +11558,15 @@ main {
     position: flex;
   }
 
+  .nav-container {
+    width: 70%;
+  }
   .nav-container .nav-container_item .nav-container_item_header .close-menu {
     display: block;
+  }
+
+  .nav-link-item_content {
+    width: 100% !important;
   }
 }
 .header-container {
