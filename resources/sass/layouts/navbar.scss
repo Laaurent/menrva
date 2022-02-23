@@ -31,6 +31,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            .close-menu{
+                display: none;
+            }
         }
         .nav-container_part{
             li{
@@ -85,6 +88,15 @@
         .side-block{
             position: absolute;
             position: flex;
+        }
+    }
+    .nav-container{
+        .nav-container_item{
+            .nav-container_item_header{
+                .close-menu{
+                    display: block;
+                }
+            }
         }
     }
 }

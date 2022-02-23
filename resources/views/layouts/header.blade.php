@@ -1,6 +1,6 @@
 <div class="header-container">
     <div>
-        <button class="btn" onclick="myOpen();">
+        <button class="btn open-menu" onclick="myOpen();">
             <x-coolicon-grid-big-round />
         </button>
     </div>

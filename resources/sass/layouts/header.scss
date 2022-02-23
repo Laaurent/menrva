@@ -3,9 +3,20 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    .open-menu{
+        display: none;
+    }
     .header-container__log-links{
         display: flex;
         height: 32px;
         align-items: center;
     }
+}
+
+@media only screen and (max-width: 768px) {
+.header-container{
+     .open-menu{
+        display: block;
+    }
+}
 }
