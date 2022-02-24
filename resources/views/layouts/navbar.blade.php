@@ -24,34 +24,34 @@
                     </div>
                     <div class="nav-link-item_point"></div>
                 </li>
-                {{-- @if (Auth::check()) --}}
-                <li>
-                    <hr>
-                </li>
-                <li class="nav-link-item @if (request()->routeIs('profil')) isactive @endif">
-                    <div class="nav-link-item_content">
-                        <x-coolicon-user-circle /><a href="{{ route('profil') }}">
-                            Profil
-                        </a>
-                    </div>
-                    <div class="nav-link-item_point"></div>
-                </li>
-                {{-- @endif --}}
+                @if (Auth::check())
+                    <li>
+                        <hr>
+                    </li>
+                    <li class="nav-link-item @if (request()->routeIs('profil')) isactive @endif">
+                        <div class="nav-link-item_content">
+                            <x-coolicon-user-circle /><a href="{{ route('profil') }}">
+                                Profil
+                            </a>
+                        </div>
+                        <div class="nav-link-item_point"></div>
+                    </li>
+                @endif
             </ul>
         </div>
 
         <div class="nav-container_item">
             <ul class="nav-container_part">
-                {{-- @if (Auth::check()) --}}
-                <li class="nav-link-item @if (request()->routeIs('settings')) isactive @endif">
-                    <div class="nav-link-item_content">
-                        <x-coolicon-settings /><a href="{{ route('settings') }}">
-                            Paramètres
-                        </a>
-                    </div>
-                    <div class="nav-link-item_point"></div>
-                </li>
-                {{-- @endif --}}
+                @if (Auth::check())
+                    <li class="nav-link-item @if (request()->routeIs('settings')) isactive @endif">
+                        <div class="nav-link-item_content">
+                            <x-coolicon-settings /><a href="{{ route('settings') }}">
+                                Paramètres
+                            </a>
+                        </div>
+                        <div class="nav-link-item_point"></div>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

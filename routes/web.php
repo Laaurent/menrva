@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerificationController;
 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +26,10 @@ Route::get('/rechercher', function () {
 
 // A DELETE
 
-Route::get('/profil', function () {
-    return view('pages.user');
-})->name('profil');
+// USER
+Route::get('/profil', [UserController::class, 'index'])->name('profil');
+
+Route::get('/user/{id}', [UserController::class, 'read'])->name('user.read');
 
 Route::get('/parametres', function () {
     return view('home');

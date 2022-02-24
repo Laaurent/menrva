@@ -57,3 +57,16 @@
 .btn-primary{
     background: $myprimary;
 }
+
+.skeleton{
+    margin: 4px 0 !important;
+}
+.skeleton_full{
+    width: 100% !important;
+}
+
+.unknown{
+    color: $mydarkgrey;
+    font-style: italic;
+    font-size: 13px;
+}

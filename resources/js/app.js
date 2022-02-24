@@ -28,6 +28,12 @@ files.keys().map((key) => Vue.component(key.split("/").pop().split(".")[0], file
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// Import the component
+import VueSkeletonLoader from "skeleton-loader-vue";
+
+// Register the component globally
+Vue.component("vue-skeleton-loader", VueSkeletonLoader);
+
 const app = new Vue({
    el: "#app",
 });

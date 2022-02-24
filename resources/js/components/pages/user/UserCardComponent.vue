@@ -1,16 +1,20 @@
 <template>
    <div class="card-container" :style="'flex:' + card_type[type].size">
       <h4>{{ card_type[type].name }}</h4>
-      <p v-if="type == 'resume'">
-         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Convallis est dui neque, vel nulla magna eget mattis amet. Nullam potenti id ultrices urna eu
-         vestibulum enim justo. Cursus ut ut tortor diam arcu, auctor feugiat suspendisse. Venenatis vivamus dictum porttitor posuere est egestas sit vestibulum
-         facilisis. Turpis vulputate ac sit curabitur massa cursus. Phasellus aliquet arcu mauris nunc, ac. Vehicula congue in mattis enim nunc egestas interdum
-         dictum quam. Eget donec leo aliquam at viverra cras tempus. Nisi, nisl eget id arcu ultrices egestas.
+      <p v-if="type == 'resume'" :class="!resume ? 'unknown' : ''">
+         <template v-if="user_loaded">
+            <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
+            <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
+            <VueSkeletonLoader class="skeleton" type="rect" :width="150" :height="13" animation="fade" rounded
+         /></template>
+         <template v-else>
+            {{ resume === "" ? resume : "Ne possède pas encore de résumé..." }}
+         </template>
       </p>
-      <p v-if="type == 'formation'">
+      <p v-else-if="type == 'formation'">
          LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum
       </p>
-      <p v-if="type == 'experience'">
+      <p v-else-if="type == 'experience'">
          LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum
       </p>
       <p v-else>wip</p>
@@ -18,13 +22,19 @@
 </template>
 
 <script>
+import VueSkeletonLoader from "skeleton-loader-vue";
 export default {
-   props: ["type"],
+   props: {
+      type: { required: true },
+      user_loaded: { required: true },
+      resume: { required: false },
+   },
+   components: { VueSkeletonLoader },
    data() {
       return {
          card_type: {
             resume: { name: "Résumé", size: 2 },
-            formation: { name: "Résumé", size: 1 },
+            formation: { name: "Formation", size: 1 },
             other: { name: "other", size: 2 },
             experience: { name: "Expérience", size: 1 },
          },

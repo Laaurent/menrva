@@ -11658,3 +11658,17 @@ main {
 .btn-primary {
   background: #286BEE;
 }
+
+.skeleton {
+  margin: 4px 0 !important;
+}
+
+.skeleton_full {
+  width: 100% !important;
+}
+
+.unknown {
+  color: #7A868C;
+  font-style: italic;
+  font-size: 13px;
+}

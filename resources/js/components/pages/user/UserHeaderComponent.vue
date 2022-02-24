@@ -1,20 +1,25 @@
 <template>
    <div class="user-header-container">
-      <div class="user-header-container__background">bg</div>
+      <div class="user-header-container__background"></div>
       <div class="user-header-container__infos">
          <div class="user-header-container__infos_img"></div>
          <div class="user-header-container__infos_main">
             <div class="infos__main_text">
                <div class="infos__main_name">
-                  <h1>{{ fullname }}</h1>
-                  <div>
-                     <CertifiedComponent></CertifiedComponent>
-                  </div>
+                  <VueSkeletonLoader v-if="user_loaded" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
+                  <template v-else>
+                     <h1>{{ fullname }}</h1>
+                     <div>
+                        <CertifiedComponent></CertifiedComponent>
+                     </div>
+                  </template>
                </div>
                <div class="infos__main_place">
-                  <PlaceComponent size="12"></PlaceComponent>
-
-                  <h6>{{ place }}</h6>
+                  <VueSkeletonLoader v-if="user_loaded" class="skeleton" type="rect" :width="150" :height="16" animation="fade" rounded />
+                  <template v-else>
+                     <PlaceComponent size="12"></PlaceComponent>
+                     <h6 :style="!place ? 'font-style: italic' : ''">{{ place ? place : "non renseigné" }}</h6>
+                  </template>
                </div>
             </div>
             <div class="infos__main_button">
@@ -27,16 +32,20 @@
 </template>
 
 <script>
+import VueSkeletonLoader from "skeleton-loader-vue";
 import CertifiedComponent from "../../components/svg/CertifiedComponent.vue";
 import PlaceComponent from "../../components/svg/PlaceComponent.vue";
 import CommentComponent from "../../components/svg/CommentComponent.vue";
 import LikeComponent from "../../components/svg/LikeComponent.vue";
 export default {
-   components: { CertifiedComponent, PlaceComponent, CommentComponent, LikeComponent },
-   props: ["first_name", "last_name", "place"],
+   components: { CertifiedComponent, PlaceComponent, CommentComponent, LikeComponent, VueSkeletonLoader },
+   props: ["id", "first_name", "last_name", "user_loaded", "place"],
+   data() {
+      return {};
+   },
    computed: {
       fullname() {
-         return this.last_name.toUpperCase() + " " + this.first_name;
+         return this.last_name?.toUpperCase() + " " + this.first_name;
       },
    },
 };
