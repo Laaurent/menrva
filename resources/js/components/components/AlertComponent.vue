@@ -20,16 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$myblack: #102347;
-$myprimary: #286bee;
-$mygrey: #fefefe;
-$mywhite: #ffffff;
-$mygrey2: #e7ecee;
-$mygrey3: #f6f6f6;
-$mydarkgrey: #7a868c;
-
-$myred: #eb4f4f;
-$mygreen: #0acf83;
+@import "resources/sass/_variables.scss";
 .danger {
    background-color: rgba($myred, 0.3);
    color: $myred;

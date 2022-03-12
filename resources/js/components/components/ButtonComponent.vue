@@ -19,13 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$myblack: #102347;
-$myprimary: #286bee;
-$mygrey: #fefefe;
-$mywhite: #ffffff;
-$mygrey2: #e7ecee;
-$mygrey3: #f6f6f6;
-$mydarkgrey: #7a868c;
+@import "resources/sass/_variables.scss";
 .btn {
    width: 120px;
    font-size: 14px;

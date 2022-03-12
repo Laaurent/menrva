@@ -42,6 +42,9 @@
                outline-color: $myprimary;
             }
         }
+        .mytextarea{
+            border: 1px solid $myprimary;
+        }
     }
 
     .invalid-feedback{

@@ -27,7 +27,7 @@ h1{
     font-size: 36px;
     line-height: 42px;
 }
-h2,h6{
+h2,h4,h6{
     margin: 0;
     padding:0;
 }
@@ -65,5 +65,10 @@ main{
     padding: 0 64px;
 }
 ul{
+    padding: 0;
+}
+button{
+    border: none;
+    background: none;
     padding: 0;
 }

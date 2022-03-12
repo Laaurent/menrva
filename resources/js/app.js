@@ -31,9 +31,15 @@ files.keys().map((key) => Vue.component(key.split("/").pop().split(".")[0], file
 // Import the component
 import VueSkeletonLoader from "skeleton-loader-vue";
 
+import { createPinia, PiniaVuePlugin } from "pinia";
+
+Vue.use(PiniaVuePlugin);
+const pinia = createPinia();
+
 // Register the component globally
 Vue.component("vue-skeleton-loader", VueSkeletonLoader);
 
 const app = new Vue({
    el: "#app",
+   pinia,
 });

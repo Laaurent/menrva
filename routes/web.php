@@ -27,24 +27,21 @@ Route::get('/rechercher', function () {
 // A DELETE
 
 // USER
-Route::get('/profil', [UserController::class, 'index'])->name('profil');
-
 Route::get('/user/{id}', [UserController::class, 'read'])->name('user.read');
 
-Route::get('/parametres', function () {
-    return view('home');
-})->name('settings');
 
 Route::group(
     ['middleware' => 'auth'],
     function () {
-        /* Route::get('/profil', function () {
-            return view('pages.user');
-        })->name('profil');
- */
-        /*  Route::get('/parametres', function () {
+
+        // USER
+        Route::get('/profil', [UserController::class, 'index'])->name('profil');
+        Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+        Route::get('/user/auth', [UserController::class, 'auth'])->name('user.auth');
+
+        Route::get('/parametres', function () {
             return view('home');
-        })->name('settings'); */
+        })->name('settings');
     }
 );
 
