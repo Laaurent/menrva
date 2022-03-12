@@ -18,7 +18,12 @@
                   :resume="user_tmp ? user_tmp.data.resume : null"
                   :user_loaded="user_loaded"
                ></UserCardComponent>
-               <UserCardComponent type="formation" :id="user_tmp ? user_tmp.data.id : null" :user_loaded="user_loaded"></UserCardComponent>
+               <UserCardComponent
+                  type="formation"
+                  :formations="user_tmp ? user_tmp.data.formations : null"
+                  :id="user_tmp ? user_tmp.data.id : null"
+                  :user_loaded="user_loaded"
+               ></UserCardComponent>
             </div>
             <div class="user-cards_row">
                <UserCardComponent type="other" :id="user_tmp ? user_tmp.data.id : null" :user_loaded="user_loaded"></UserCardComponent>

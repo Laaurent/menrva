@@ -6,7 +6,7 @@
          <div class="user-header-container__infos_main">
             <div class="infos__main_text">
                <div class="infos__main_name">
-                  <VueSkeletonLoader v-if="user_loaded" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
+                  <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
                   <template v-else>
                      <form class="infos__main_name_update input-form" v-if="edit">
                         <input class="myinput" v-model="lastNameUppercase" placeholder="NOM" type="text" />
@@ -15,17 +15,13 @@
                      <h1 v-else>{{ fullname }}</h1>
 
                      <div>
-                        <EditButtonComponent
-                           :loading="loading_user"
-                           @update:click="edit = !edit"
-                           @update:user="updateUserProfil('name', id, form)"
-                        ></EditButtonComponent>
+                        <EditButtonComponent :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
                         <IconComponent type="certified"></IconComponent>
                      </div>
                   </template>
                </div>
                <div class="infos__main_place">
-                  <VueSkeletonLoader v-if="user_loaded" class="skeleton" type="rect" :width="150" :height="16" animation="fade" rounded />
+                  <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="150" :height="16" animation="fade" rounded />
                   <template v-else>
                      <form class="infos__main_name_update input-form" v-if="edit">
                         <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
@@ -51,7 +47,6 @@ import VueSkeletonLoader from "skeleton-loader-vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 import { useAuth } from "../../../store/useAuth";
-import { useUser } from "../../../store/useUser";
 import { mapActions, mapState } from "pinia";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader },
@@ -95,10 +90,17 @@ export default {
             return user_log;
          },
       }),
-      ...mapState(useUser, ["loading_user"]),
    },
    methods: {
-      ...mapActions(useUser, ["updateUserProfil"]),
+      async updateUserProfil(form) {
+         this.loading = true;
+         try {
+            const result = await axios.post(`/user/${this.id}/update/`, { form: form });
+            this.loading = false;
+         } catch (error) {
+            console.error(error);
+         }
+      },
    },
 };
 </script>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerificationController;
-
+use App\Http\Controllers\FormationController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -38,6 +38,10 @@ Route::group(
         Route::get('/profil', [UserController::class, 'index'])->name('profil');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::get('/user/auth', [UserController::class, 'auth'])->name('user.auth');
+
+        // FORMATION
+        Route::post('/formation/store', [FormationController::class, 'store'])->name('formation.store');
+        Route::post('/formation/delete', [FormationController::class, 'delete'])->name('formation.delete');
 
         Route::get('/parametres', function () {
             return view('home');

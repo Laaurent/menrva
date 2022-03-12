@@ -3,30 +3,58 @@
       <div class="card-container_title">
          <h4>{{ card_type[type].name }}</h4>
          <EditButtonComponent
-            :loading="loading_user"
+            v-if="type == 'resume'"
+            :loading="loading"
             @update:click="edit = !edit"
-            @update:user="updateUserProfil('name', id, form[type])"
+            @update:user="updateUserProfil('resume', form[type])"
             :size="16"
          ></EditButtonComponent>
+         <button v-if="type == 'formation'" @click="edit = !edit">
+            <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent>
+         </button>
       </div>
       <p v-if="type == 'resume'" :class="!form.resume.resume ? 'unknown' : ''">
-         <template v-if="user_loaded">
+         <template v-if="loading">
             <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
             <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
             <VueSkeletonLoader class="skeleton" type="rect" :width="150" :height="13" animation="fade" rounded
          /></template>
          <template v-else>
             <div v-if="!edit">
-               {{ form.resume.resume === "" ? "Ne possède pas encore de résumé..." : form.resume.resume }}
+               <p v-html="form.resume.resume === '' ? 'Ne possède pas encore de biographie...' : formatResume"></p>
             </div>
+
             <form v-else class="input-form">
-               <textarea class="card-container_textarea myinput" v-model="form.resume.resume"></textarea>
+               <textarea-autosize
+                  class="card-container_textarea myinput"
+                  placeholder="Ne possède pas encore de biographie..."
+                  ref="myTextarea"
+                  v-model="form.resume.resume"
+                  :min-height="30"
+                  :max-height="350"
+               />
             </form>
          </template>
       </p>
-      <p v-else-if="type == 'formation'">
-         LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum
-      </p>
+      <div v-else-if="type == 'formation'">
+         <ul>
+            <li v-for="(formation, index) in formations_data" :key="'formation_' + index">
+               <form @submit.prevent="deleteFormation(formation.id, index)">
+                  {{ formation.name }} {{ formation.start_date }} - {{ formation.end_date }} {{ formation.city }}
+                  <button v-if="edit"><IconComponent type="trash" :size="16"></IconComponent></button>
+               </form>
+            </li>
+            <li v-if="edit">
+               <form @submit.prevent="updateUserProfil('formation', form[type])">
+                  <input v-model="form.formation.name" type="text" />
+                  <input v-model="form.formation.start_date" type="date" />
+                  <input v-model="form.formation.end_date" type="date" />
+                  <input v-model="form.formation.city" type="text" />
+                  <button>save</button>
+               </form>
+            </li>
+         </ul>
+      </div>
       <p v-else-if="type == 'experience'">
          LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum
       </p>
@@ -38,20 +66,19 @@
 import VueSkeletonLoader from "skeleton-loader-vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
-import { useUser } from "../../../store/useUser";
-import { mapActions, mapState } from "pinia";
 export default {
    props: {
       id: { required: true },
       type: { required: true },
       user_loaded: { required: true },
       resume: { required: false },
+      formations: { required: false },
    },
    components: { VueSkeletonLoader, IconComponent, EditButtonComponent },
    data() {
       return {
          card_type: {
-            resume: { name: "Résumé", size: 2 },
+            resume: { name: "Biographie", size: 2 },
             formation: { name: "Formation", size: 1 },
             other: { name: "other", size: 2 },
             experience: { name: "Expérience", size: 1 },
@@ -59,24 +86,69 @@ export default {
 
          edit: false,
          loading: false,
-
+         formations_data: null,
          form: {
             resume: {
                resume: null,
             },
+            formation: {
+               name: null,
+               user_id: null,
+               start_date: null,
+               end_date: null,
+               city: null,
+            },
          },
       };
    },
-   watch: {
-      resume() {
-         this.form.resume.resume = this.resume;
+   computed: {
+      updated() {
+         return this.resume + this.formations?.join();
+      },
+      formatResume() {
+         return this.form.resume.resume?.replaceAll("\n", "<br/>");
       },
    },
-   computed: {
-      ...mapState(useUser, ["loading_user"]),
+   watch: {
+      updated() {
+         this.form.resume.resume = this.resume;
+         this.form.formation.user_id = this.id;
+         this.formations_data = this.formations;
+      },
    },
    methods: {
-      ...mapActions(useUser, ["updateUserProfil"]),
+      async updateUserProfil(type, form) {
+         this.loading = true;
+         try {
+            console.log(form);
+            let result = null;
+            if (type == "resume") result = await axios.post(`/user/${this.id}/update/`, { form: form });
+            if (type == "formation") {
+               result = await axios.post(`/formation/store`, this.form.formation);
+               this.formations_data.push(this.form.formation);
+               /*  this.resetFormation(); */
+            }
+            this.loading = false;
+         } catch (error) {
+            console.error(error);
+         }
+      },
+      async deleteFormation(id, index) {
+         this.loading = true;
+         try {
+            const result = await axios.post(`/formation/delete/`, { id: id });
+            this.formations_data = this.formations_data.splice(index, 1);
+            this.loading = false;
+         } catch (error) {
+            console.error(error);
+         }
+      },
+      resetFormation() {
+         this.form.formation.name = null;
+         this.form.formation.start_date = null;
+         this.form.formation.end_date = null;
+         this.form.formation.city = null;
+      },
    },
 };
 </script>
