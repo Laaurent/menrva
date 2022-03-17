@@ -9,7 +9,7 @@
             @update:user="updateUserProfil('resume', form[type])"
             :size="16"
          ></EditButtonComponent>
-         <button v-if="type == 'formation'" @click="edit = !edit">
+         <button v-if="type == 'formation' || type == 'experience'" @click="edit = !edit">
             <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent>
          </button>
       </div>
@@ -39,24 +39,72 @@
       <div v-else-if="type == 'formation'">
          <ul>
             <li v-for="(formation, index) in formations_data" :key="'formation_' + index">
-               <form @submit.prevent="deleteFormation(formation.id, index)">
-                  {{ formation.name }} {{ formation.start_date }} - {{ formation.end_date }} {{ formation.city }}
-                  <button v-if="edit"><IconComponent type="trash" :size="16"></IconComponent></button>
+               <form @submit.prevent="deleteFormation(formation.id, index)" class="my-2 flex justify-between items-center">
+                  <div>
+                     <h5 class="name">{{ formation.name }}</h5>
+ <p class="text-secondary">
+                        {{ formation.start_date }} -
+                        <span :class="!formation.end_date ? 'italic' : ''">{{ formation.end_date ? formation.end_date : "Aujourd'hui" }}</span>
+                     </p>
+                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }}</p>
+                  </div>
+                  <div class="flex gap-2">
+                    
+                     <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
+                  </div>
                </form>
             </li>
-            <li v-if="edit">
-               <form @submit.prevent="updateUserProfil('formation', form[type])">
-                  <input v-model="form.formation.name" type="text" />
-                  <input v-model="form.formation.start_date" type="date" />
-                  <input v-model="form.formation.end_date" type="date" />
-                  <input v-model="form.formation.city" type="text" />
-                  <button>save</button>
+            <li v-if="!edit">
+               <h6>Nouvelle formation</h6>
+               <form @submit.prevent="updateUserProfil('formation', form[type])" class="flex flex-col input-form gap-2">
+                  <input required class="myinput" v-model="form.formation.name" type="text" placeholder="Intitulé de la formation" />
+                  <div class="flex w-full gap-2 flex-col lg:flex-row">
+                     <input required class="flex-1 myinput" v-model="form.formation.start_date" type="month" />
+                     <span class="hidden lg:inline">-</span>
+                     <input class="flex-1 myinput" v-model="form.formation.end_date" type="month" />
+                  </div>
+                  <input required class="myinput" v-model="form.formation.city" type="text" placeholder="Lieu de la formation" />
+                  <button class="btn btn-primary">
+                     <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
+                  </button>
                </form>
             </li>
          </ul>
       </div>
       <p v-else-if="type == 'experience'">
-         LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum LOREM IPSUM 1900 - 1900 lorem ipsum
+        <ul>
+            <li v-for="(experience, index) in experiences_data" :key="'experience_' + index">
+               <form @submit.prevent="deleteFormation(experience.id, index)" class="my-2 flex justify-between items-center">
+                  <div>
+                     <h5 class="name">{{ experience.name }}</h5>
+                     <p class="text-secondary">
+                        {{ experience.start_date }} -
+                        <span :class="!experience.end_date ? 'italic' : ''">{{ experience.end_date ? experience.end_date : "Aujourd'hui" }}</span>
+                     </p>
+                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }}</p>
+                  </div>
+                  <div class="flex gap-2">
+                    
+                     <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
+                  </div>
+               </form>
+            </li>
+            <li v-if="edit">
+               <h6>Nouvelle expérience</h6>
+               <form @submit.prevent="updateUserProfil('experience', form[type])" class="flex flex-col input-form gap-2">
+                  <input required class="myinput" v-model="form.experience.name" type="text" placeholder="Intitulé de l'expérience" />
+                  <div class="flex w-full gap-2 flex-col lg:flex-row">
+                     <input required class="flex-1 myinput" v-model="form.experience.start_date" type="month" />
+                     <span class="hidden lg:inline">-</span>
+                     <input class="flex-1 myinput" v-model="form.experience.end_date" type="month" />
+                  </div>
+                  <input required class="myinput" v-model="form.experience.city" type="text" placeholder="Lieu de l'expérience" />
+                  <button class="btn btn-primary">
+                     <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
+                  </button>
+               </form>
+            </li>
+         </ul>
       </p>
       <p v-else>wip</p>
    </div>
@@ -73,6 +121,7 @@ export default {
       user_loaded: { required: true },
       resume: { required: false },
       formations: { required: false },
+      experiences: { required: false },
    },
    components: { VueSkeletonLoader, IconComponent, EditButtonComponent },
    data() {
@@ -87,6 +136,7 @@ export default {
          edit: false,
          loading: false,
          formations_data: null,
+         experiences_data: null,
          form: {
             resume: {
                resume: null,
@@ -98,12 +148,19 @@ export default {
                end_date: null,
                city: null,
             },
+            experience: {
+               name: null,
+               user_id: null,
+               start_date: null,
+               end_date: null,
+               city: null,
+            },
          },
       };
    },
    computed: {
       updated() {
-         return this.resume + this.formations?.join();
+         return this.resume + this.formations?.join() + this.experiences?.join();
       },
       formatResume() {
          return this.form.resume.resume?.replaceAll("\n", "<br/>");
@@ -114,18 +171,28 @@ export default {
          this.form.resume.resume = this.resume;
          this.form.formation.user_id = this.id;
          this.formations_data = this.formations;
+          this.form.experience.user_id = this.id;
+         this.experiences_data = this.experiences;
       },
    },
    methods: {
       async updateUserProfil(type, form) {
          this.loading = true;
          try {
-            console.log(form);
             let result = null;
             if (type == "resume") result = await axios.post(`/user/${this.id}/update/`, { form: form });
             if (type == "formation") {
                result = await axios.post(`/formation/store`, this.form.formation);
-               this.formations_data.push(this.form.formation);
+               //! A FIX
+               const formation_tmp = this.form.formation;
+               this.formations_data.push(formation_tmp);
+               /*  this.resetFormation(); */
+            }
+            if (type == "experience") {
+               result = await axios.post(`/experience/store`, this.form.experience);
+               //! A FIX
+               const experience_tmp = this.form.experience;
+               this.experiences_data.push(experience_tmp);
                /*  this.resetFormation(); */
             }
             this.loading = false;

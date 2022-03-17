@@ -10,11 +10,17 @@ class FormationController extends Controller
     //STORE A NEW FORMATION
     public function store(Request $request)
     {
+
+        //FORMAT INPUT DATE FOR STORE MONTH AND
+        $request['start_date'] .= "-01";
+        if ($request['end_date'])
+            $request['end_date'] .= "-01";
+
         $formation = Formation::create($request->toArray());
         return $formation;
     }
     //DELETE A FORMATION
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $formation = Formation::destroy($request->id);
         return $formation;

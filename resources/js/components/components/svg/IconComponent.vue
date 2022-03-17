@@ -66,6 +66,9 @@
             :fill="colors[color]"
          ></path>
       </svg>
+      <svg v-if="type == 'plus_add'" :width="size" :height="size" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M6 12H12M18 12H12M12 12V6M12 12V18" :stroke="colors[color]" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
    </section>
 </template>
 
@@ -81,6 +84,8 @@ export default {
          colors: {
             white: "#fff",
             black: "#212529",
+            red: "#EB4F4F",
+            grey: "#7A868C",
          },
       };
    },

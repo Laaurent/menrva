@@ -27,7 +27,7 @@
                         <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
                      </form>
                      <div v-else>
-                        <IconComponent type="place" size="12"></IconComponent>
+                        <IconComponent type="place" size="12" color="grey"></IconComponent>
                         <h6 :style="!city ? 'font-style: italic' : ''">{{ form.city ? form.city : "non renseigné" }}</h6>
                      </div>
                   </template>

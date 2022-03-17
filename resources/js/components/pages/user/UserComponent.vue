@@ -27,7 +27,12 @@
             </div>
             <div class="user-cards_row">
                <UserCardComponent type="other" :id="user_tmp ? user_tmp.data.id : null" :user_loaded="user_loaded"></UserCardComponent>
-               <UserCardComponent type="experience" :id="user_tmp ? user_tmp.data.id : null" :user_loaded="user_loaded"></UserCardComponent>
+               <UserCardComponent
+                  :experiences="user_tmp ? user_tmp.data.experiences : null"
+                  type="experience"
+                  :id="user_tmp ? user_tmp.data.id : null"
+                  :user_loaded="user_loaded"
+               ></UserCardComponent>
             </div>
          </div>
       </div>

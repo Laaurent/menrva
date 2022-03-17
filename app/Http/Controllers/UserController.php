@@ -19,7 +19,7 @@ class UserController extends Controller
     //READ USER INFORMATIONS BY ID
     public function read($id)
     {
-        $user = User::where('id', $id)->with(['formations'])->first();
+        $user = User::where('id', $id)->with(['formations', 'experiences'])->first();
 
         return $user;
     }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,11 @@ Route::group(
 
         // FORMATION
         Route::post('/formation/store', [FormationController::class, 'store'])->name('formation.store');
-        Route::post('/formation/delete', [FormationController::class, 'delete'])->name('formation.delete');
+        Route::post('/formation/delete', [FormationController::class, 'destroy'])->name('formation.delete');
+
+        // EXPERIENCE
+        Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
+        Route::post('/experience/delete', [ExperienceController::class, 'destroy'])->name('experience.delete');
 
         Route::get('/parametres', function () {
             return view('home');
