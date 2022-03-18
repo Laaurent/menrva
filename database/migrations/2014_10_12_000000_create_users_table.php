@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->string('city')->nullable();
+            $table->string('city_department')->nullable();
             $table->text('resume')->nullable();
 
             $table->rememberToken();

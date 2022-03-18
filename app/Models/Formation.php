@@ -15,5 +15,6 @@ class Formation extends Model
         'start_date',
         'end_date',
         'city',
+        'city_department'
     ];
 }

@@ -1,5 +1,12 @@
 <template>
-   <div class="card-container" :style="'flex:' + card_type[type].size">
+   <div class="card-container min-h-[400px]" 
+      :class="
+         card_type[type].size == 1 ?
+         'maw-w-full lg:!w-[400px]' : 
+         'flex-1'
+      "
+   >
+      <!-- TITLE -->
       <div class="card-container_title">
          <h4>{{ card_type[type].name }}</h4>
          <EditButtonComponent
@@ -13,6 +20,7 @@
             <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent>
          </button>
       </div>
+      <!-- BODY RESUME -->
       <p v-if="type == 'resume'" :class="!form.resume.resume ? 'unknown' : ''">
          <template v-if="loading">
             <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
@@ -36,25 +44,26 @@
             </form>
          </template>
       </p>
+      <!-- BODY FORMATION -->
       <div v-else-if="type == 'formation'">
          <ul>
             <li v-for="(formation, index) in formations_data" :key="'formation_' + index">
                <form @submit.prevent="deleteFormation(formation.id, index)" class="my-2 flex justify-between items-center">
-                  <div>
-                     <h5 class="name">{{ formation.name }}</h5>
- <p class="text-secondary">
+                  <div class="w-full">
+                     <h5 class="name break-words">{{ formation.name }}</h5>
+                     <p class="text-primary">
                         {{ formation.start_date }} -
                         <span :class="!formation.end_date ? 'italic' : ''">{{ formation.end_date ? formation.end_date : "Aujourd'hui" }}</span>
                      </p>
-                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }}</p>
+                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }} - ({{formation.city_department}})</p>
                   </div>
                   <div class="flex gap-2">
-                    
+                     <button><IconComponent type="info" :size="16"></IconComponent></button>
                      <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
                   </div>
                </form>
             </li>
-            <li v-if="!edit">
+            <li v-if="edit">
                <h6>Nouvelle formation</h6>
                <form @submit.prevent="updateUserProfil('formation', form[type])" class="flex flex-col input-form gap-2">
                   <input required class="myinput" v-model="form.formation.name" type="text" placeholder="Intitulé de la formation" />
@@ -64,6 +73,7 @@
                      <input class="flex-1 myinput" v-model="form.formation.end_date" type="month" />
                   </div>
                   <input required class="myinput" v-model="form.formation.city" type="text" placeholder="Lieu de la formation" />
+                  <SelectDepartmentComponent @update:department="form.formation.city_department = $event"></SelectDepartmentComponent>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
                   </button>
@@ -71,20 +81,21 @@
             </li>
          </ul>
       </div>
+      <!-- BODY EXPERIENCE -->
       <p v-else-if="type == 'experience'">
         <ul>
             <li v-for="(experience, index) in experiences_data" :key="'experience_' + index">
                <form @submit.prevent="deleteFormation(experience.id, index)" class="my-2 flex justify-between items-center">
-                  <div>
-                     <h5 class="name">{{ experience.name }}</h5>
-                     <p class="text-secondary">
+                  <div class="w-full">
+                     <h5 class="name break-words">{{ experience.name }}</h5>
+                     <p class="text-primary">
                         {{ experience.start_date }} -
                         <span :class="!experience.end_date ? 'italic' : ''">{{ experience.end_date ? experience.end_date : "Aujourd'hui" }}</span>
                      </p>
-                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }}</p>
+                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }} - ({{experience.city_department}})</p>
                   </div>
-                  <div class="flex gap-2">
-                    
+                  <div class="flex gap-2">  
+                     <button><IconComponent type="info" :size="16"></IconComponent></button>
                      <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
                   </div>
                </form>
@@ -99,6 +110,7 @@
                      <input class="flex-1 myinput" v-model="form.experience.end_date" type="month" />
                   </div>
                   <input required class="myinput" v-model="form.experience.city" type="text" placeholder="Lieu de l'expérience" />
+                   <SelectDepartmentComponent @update:department="form.experience.city_department = $event"></SelectDepartmentComponent>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
                   </button>
@@ -106,6 +118,7 @@
             </li>
          </ul>
       </p>
+      <!-- BODY OTHER -->
       <p v-else>wip</p>
    </div>
 </template>
@@ -113,6 +126,7 @@
 <script>
 import VueSkeletonLoader from "skeleton-loader-vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
+import SelectDepartmentComponent from "../../components/SelectDepartmentComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 export default {
    props: {
@@ -123,7 +137,7 @@ export default {
       formations: { required: false },
       experiences: { required: false },
    },
-   components: { VueSkeletonLoader, IconComponent, EditButtonComponent },
+   components: { VueSkeletonLoader, IconComponent, EditButtonComponent,SelectDepartmentComponent },
    data() {
       return {
          card_type: {
@@ -147,6 +161,7 @@ export default {
                start_date: null,
                end_date: null,
                city: null,
+               city_department: null,
             },
             experience: {
                name: null,
@@ -154,6 +169,8 @@ export default {
                start_date: null,
                end_date: null,
                city: null,
+               city: null,
+               city_department: null,
             },
          },
       };

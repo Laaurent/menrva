@@ -18,6 +18,7 @@ class CreateExperiencesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('city');
+            $table->string('city_department');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();

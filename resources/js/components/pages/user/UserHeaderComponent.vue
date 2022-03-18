@@ -9,26 +9,20 @@
                   <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
                   <template v-else>
                      <form class="infos__main_name_update input-form" v-if="edit">
-                        <input class="myinput" v-model="lastNameUppercase" placeholder="NOM" type="text" />
-                        <input class="myinput" v-model="form.first_name" placeholder="Prénom" type="text" />
+                        <input class="myinput big-input" v-model="lastNameUppercase" placeholder="NOM" type="text" />
+                        <input class="myinput big-input" v-model="form.first_name" placeholder="Prénom" type="text" />
+                        <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
+                        <SelectDepartmentComponent></SelectDepartmentComponent>
                      </form>
                      <h1 v-else>{{ fullname }}</h1>
+                     <div>
+                        <IconComponent type="place" size="12" color="grey"></IconComponent>
+                        <h6 :style="!city ? 'font-style: italic' : ''">{{ form.city ? form.city : "non renseigné" }}</h6>
+                     </div>
 
                      <div>
                         <EditButtonComponent :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
                         <IconComponent type="certified"></IconComponent>
-                     </div>
-                  </template>
-               </div>
-               <div class="infos__main_place">
-                  <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="150" :height="16" animation="fade" rounded />
-                  <template v-else>
-                     <form class="infos__main_name_update input-form" v-if="edit">
-                        <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
-                     </form>
-                     <div v-else>
-                        <IconComponent type="place" size="12" color="grey"></IconComponent>
-                        <h6 :style="!city ? 'font-style: italic' : ''">{{ form.city ? form.city : "non renseigné" }}</h6>
                      </div>
                   </template>
                </div>
@@ -44,12 +38,13 @@
 
 <script>
 import VueSkeletonLoader from "skeleton-loader-vue";
+import SelectDepartmentComponent from "../../components/SelectDepartmentComponent.vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 import { useAuth } from "../../../store/useAuth";
 import { mapActions, mapState } from "pinia";
 export default {
-   components: { IconComponent, EditButtonComponent, VueSkeletonLoader },
+   components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
    props: ["id", "first_name", "last_name", "user_loaded", "city"],
    data() {
       return {
@@ -60,6 +55,7 @@ export default {
             first_name: null,
             name: null,
             city: null,
+            city_department: null,
          },
       };
    },
@@ -154,10 +150,9 @@ $mydarkgrey: #7a868c;
             }
             .infos__main_name {
                .input-form {
-                  .myinput {
+                  .big-input {
                      margin: 2px 0;
                      display: inline;
-                     width: 180px;
                      font-size: 24px;
                   }
                }
@@ -190,14 +185,6 @@ $mydarkgrey: #7a868c;
                   .myinput {
                      width: 120px !important;
                      font-size: 16px !important;
-                  }
-               }
-            }
-            .infos__main_place {
-               .input-form {
-                  .myinput {
-                     width: 120px !important;
-                     font-size: 13px !important;
                   }
                }
             }
