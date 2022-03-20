@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Experience;
 use App\Http\Requests\StoreExperienceRequest;
 use App\Http\Requests\UpdateExperienceRequest;
+use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
@@ -86,7 +87,7 @@ class ExperienceController extends Controller
      * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Experience $experience)
+    public function destroy(Request $request)
     {
         $formation = Experience::destroy($request->id);
         return $formation;

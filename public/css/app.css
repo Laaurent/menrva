@@ -436,14 +436,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-mt-px{
   margin-top: -1px;
 }
-.mb-0{
-  margin-bottom: 0px;
-}
 .mb-5{
   margin-bottom: 1.25rem;
 }
 .mt-3{
   margin-top: 0.75rem;
+}
+.mb-0{
+  margin-bottom: 0px;
+}
+.mb-4{
+  margin-bottom: 1rem;
+}
+.mb-2{
+  margin-bottom: 0.5rem;
 }
 .block{
   display: block;
@@ -475,6 +481,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .min-h-\[400px\]{
   min-height: 400px;
 }
+.min-h-\[380px\]{
+  min-height: 380px;
+}
+.min-h-\[360px\]{
+  min-height: 360px;
+}
 .w-5{
   width: 1.25rem;
 }
@@ -487,11 +499,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-full{
   width: 100%;
 }
-.max-w-6xl{
-  max-width: 72rem;
-}
 .max-w-xl{
   max-width: 36rem;
+}
+.max-w-6xl{
+  max-width: 72rem;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -507,6 +519,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .flex-col{
   flex-direction: column;
+}
+.items-start{
+  align-items: flex-start;
+}
+.\!items-start{
+  align-items: flex-start !important;
 }
 .items-center{
   align-items: center;
@@ -570,13 +588,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.px-6{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .pt-8{
   padding-top: 2rem;
@@ -12050,7 +12068,7 @@ main {
   display: none;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
   /* For mobile phones: */
   .container-auth {
     height: 90vh;
@@ -12198,7 +12216,7 @@ main {
   height: 8px;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
   .side-block {
     display: none;
   }
@@ -12238,7 +12256,7 @@ main {
   align-items: center;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
   .header-container .open-menu {
     display: block;
   }
@@ -12263,7 +12281,7 @@ main {
   gap: 64px;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
   .user-container .user-container__content .user-cards-container {
     gap: 16px;
   }
@@ -12424,6 +12442,12 @@ main {
   }
   .lg\:\!w-\[400px\]{
     width: 400px !important;
+  }
+  .lg\:\!w-\[360px\]{
+    width: 360px !important;
+  }
+  .lg\:w-auto{
+    width: auto;
   }
   .lg\:flex-row{
     flex-direction: row;

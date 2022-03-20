@@ -1,27 +1,15 @@
 <template>
-   <div class="card-container min-h-[400px]" 
-      :class="
-         card_type[type].size == 1 ?
-         'maw-w-full lg:!w-[400px]' : 
-         'flex-1'
-      "
-   >
+   <div class="card-container min-h-[360px]" :class="card_type[type].size == 1 ? 'maw-w-full lg:!w-[360px]' : 'flex-1'">
       <!-- TITLE -->
-      <div class="card-container_title">
+      <div class="card-container_title mb-2">
          <h4>{{ card_type[type].name }}</h4>
-         <EditButtonComponent
-            v-if="type == 'resume'"
-            :loading="loading"
-            @update:click="edit = !edit"
-            @update:user="updateUserProfil('resume', form[type])"
-            :size="16"
-         ></EditButtonComponent>
+         <EditButtonComponent v-if="type == 'resume'" :edit="edit" :loading="loading" @update:click="edit = !edit" :size="16"></EditButtonComponent>
          <button v-if="type == 'formation' || type == 'experience'" @click="edit = !edit">
             <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent>
          </button>
       </div>
       <!-- BODY RESUME -->
-      <p v-if="type == 'resume'" :class="!form.resume.resume ? 'unknown' : ''">
+      <div v-if="type == 'resume'" :class="!form.resume.resume ? 'unknown' : ''">
          <template v-if="loading">
             <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
             <VueSkeletonLoader class="skeleton skeleton_full" type="rect" :height="13" animation="fade" rounded />
@@ -32,7 +20,7 @@
                <p v-html="form.resume.resume === '' ? 'Ne possède pas encore de biographie...' : formatResume"></p>
             </div>
 
-            <form v-else class="input-form">
+            <form @submit.prevent="updateUserProfil('resume', form[type])" v-else class="input-form">
                <textarea-autosize
                   class="card-container_textarea myinput"
                   placeholder="Ne possède pas encore de biographie..."
@@ -41,27 +29,34 @@
                   :min-height="30"
                   :max-height="350"
                />
+               <button class="w-full lg:w-auto btn btn-primary">
+                  <span class="flex justify-center items-center gap-2"><IconComponent type="save" color="white" size="12"></IconComponent>Modifier </span>
+               </button>
             </form>
          </template>
-      </p>
+      </div>
       <!-- BODY FORMATION -->
       <div v-else-if="type == 'formation'">
          <ul>
             <li v-for="(formation, index) in formations_data" :key="'formation_' + index">
-               <form @submit.prevent="deleteFormation(formation.id, index)" class="my-2 flex justify-between items-center">
+               <div class="my-2 flex justify-between items-center">
                   <div class="w-full">
                      <h5 class="name break-words">{{ formation.name }}</h5>
                      <p class="text-primary">
                         {{ formation.start_date }} -
                         <span :class="!formation.end_date ? 'italic' : ''">{{ formation.end_date ? formation.end_date : "Aujourd'hui" }}</span>
                      </p>
-                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }} - ({{formation.city_department}})</p>
+                     <p class="flex items-center text-secondary">
+                        <IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }} - ({{ formation.city_department }})
+                     </p>
                   </div>
                   <div class="flex gap-2">
                      <button><IconComponent type="info" :size="16"></IconComponent></button>
-                     <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
+                     <button v-if="edit" @click="deleteRow('formation', formation.id, index)">
+                        <IconComponent type="trash" :size="16" color="red"></IconComponent>
+                     </button>
                   </div>
-               </form>
+               </div>
             </li>
             <li v-if="edit">
                <h6>Nouvelle formation</h6>
@@ -82,23 +77,27 @@
          </ul>
       </div>
       <!-- BODY EXPERIENCE -->
-      <p v-else-if="type == 'experience'">
-        <ul>
+      <div v-else-if="type == 'experience'">
+         <ul>
             <li v-for="(experience, index) in experiences_data" :key="'experience_' + index">
-               <form @submit.prevent="deleteFormation(experience.id, index)" class="my-2 flex justify-between items-center">
+               <div class="my-2 flex justify-between items-center">
                   <div class="w-full">
                      <h5 class="name break-words">{{ experience.name }}</h5>
                      <p class="text-primary">
                         {{ experience.start_date }} -
                         <span :class="!experience.end_date ? 'italic' : ''">{{ experience.end_date ? experience.end_date : "Aujourd'hui" }}</span>
                      </p>
-                     <p class="flex items-center text-secondary"><IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }} - ({{experience.city_department}})</p>
+                     <p class="flex items-center text-secondary">
+                        <IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }} - ({{ experience.city_department }})
+                     </p>
                   </div>
-                  <div class="flex gap-2">  
+                  <div class="flex gap-2">
                      <button><IconComponent type="info" :size="16"></IconComponent></button>
-                     <button v-if="edit"><IconComponent type="trash" :size="16" color="red"></IconComponent></button>
+                     <button v-if="edit" @click="deleteRow('experience', experience.id, index)">
+                        <IconComponent type="trash" :size="16" color="red"></IconComponent>
+                     </button>
                   </div>
-               </form>
+               </div>
             </li>
             <li v-if="edit">
                <h6>Nouvelle expérience</h6>
@@ -110,16 +109,16 @@
                      <input class="flex-1 myinput" v-model="form.experience.end_date" type="month" />
                   </div>
                   <input required class="myinput" v-model="form.experience.city" type="text" placeholder="Lieu de l'expérience" />
-                   <SelectDepartmentComponent @update:department="form.experience.city_department = $event"></SelectDepartmentComponent>
+                  <SelectDepartmentComponent @update:department="form.experience.city_department = $event"></SelectDepartmentComponent>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
                   </button>
                </form>
             </li>
          </ul>
-      </p>
+      </div>
       <!-- BODY OTHER -->
-      <p v-else>wip</p>
+      <div v-else>wip</div>
    </div>
 </template>
 
@@ -137,7 +136,7 @@ export default {
       formations: { required: false },
       experiences: { required: false },
    },
-   components: { VueSkeletonLoader, IconComponent, EditButtonComponent,SelectDepartmentComponent },
+   components: { VueSkeletonLoader, IconComponent, EditButtonComponent, SelectDepartmentComponent },
    data() {
       return {
          card_type: {
@@ -188,7 +187,7 @@ export default {
          this.form.resume.resume = this.resume;
          this.form.formation.user_id = this.id;
          this.formations_data = this.formations;
-          this.form.experience.user_id = this.id;
+         this.form.experience.user_id = this.id;
          this.experiences_data = this.experiences;
       },
    },
@@ -197,7 +196,10 @@ export default {
          this.loading = true;
          try {
             let result = null;
-            if (type == "resume") result = await axios.post(`/user/${this.id}/update/`, { form: form });
+            if (type == "resume") {
+               result = await axios.post(`/user/${this.id}/update/`, { form: form });
+               this.edit = false;
+            }
             if (type == "formation") {
                result = await axios.post(`/formation/store`, this.form.formation);
                //! A FIX
@@ -217,11 +219,18 @@ export default {
             console.error(error);
          }
       },
-      async deleteFormation(id, index) {
+      async deleteRow(type, id, index) {
          this.loading = true;
+         let result = null;
          try {
-            const result = await axios.post(`/formation/delete/`, { id: id });
-            this.formations_data = this.formations_data.splice(index, 1);
+            if (type == "experience") {
+               result = await axios.post(`/experience/delete/`, { id: id });
+               this.experiences_data = this.experiences_data.splice(index, 1);
+            }
+            if (type == "formation") {
+               result = await axios.post(`/formation/delete/`, { id: id });
+               this.formations_data = this.formations_data.splice(index, 1);
+            }
             this.loading = false;
          } catch (error) {
             console.error(error);

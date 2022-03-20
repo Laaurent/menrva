@@ -1,8 +1,7 @@
 <template>
-   <button class="edit-button" @click="onClick()">
+   <button class="edit-button" @click="$emit('update:click')">
       <template v-if="!loading">
-         <IconComponent v-if="edit" class="edit-button_edit-icon" type="edit" :size="size"></IconComponent>
-         <IconComponent v-else class="edit-button_save-icon" type="save" :size="size"></IconComponent>
+         <IconComponent v-if="edit_tmp" class="edit-button_edit-icon" type="edit" :size="size"></IconComponent>
       </template>
       <half-circle-spinner v-else :animation-duration="1000" :size="size" color="#286BEE" />
    </button>
@@ -15,20 +14,18 @@ export default {
    props: {
       size: { default: 24 },
       loading: { default: true },
+      edit: { default: false },
    },
    components: { IconComponent, HalfCircleSpinner },
    data() {
-      return {
-         edit: true,
-      };
+      return {};
    },
-   methods: {
-      onClick() {
-         if (!this.edit) this.$emit("update:user");
-         this.$emit("update:click");
-         this.edit = !this.edit;
+   computed: {
+      edit_tmp() {
+         return !this.edit;
       },
    },
+   methods: {},
 };
 </script>
 

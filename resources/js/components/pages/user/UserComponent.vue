@@ -7,6 +7,7 @@
             :first_name="user_tmp ? user_tmp.data.first_name : null"
             :last_name="user_tmp ? user_tmp.data.name : null"
             :city="user_tmp ? user_tmp.data.city : null"
+            :city_department="user_tmp ? user_tmp.data.city_department : null"
             :user_loaded="user_loaded"
          ></UserHeaderComponent>
 

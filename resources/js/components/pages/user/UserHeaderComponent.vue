@@ -8,21 +8,31 @@
                <div class="infos__main_name">
                   <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
                   <template v-else>
-                     <form class="infos__main_name_update input-form" v-if="edit">
+                     <form @submit.prevent="updateUserProfil(form)" class="flex flex-1 flex-col input-form gap-2 input-form" v-if="edit">
                         <input class="myinput big-input" v-model="lastNameUppercase" placeholder="NOM" type="text" />
                         <input class="myinput big-input" v-model="form.first_name" placeholder="Prénom" type="text" />
                         <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
-                        <SelectDepartmentComponent></SelectDepartmentComponent>
+                        <SelectDepartmentComponent @update:department="form.city_department = $event"></SelectDepartmentComponent>
+                        <button class="btn btn-primary">
+                           <span class="flex justify-center items-center gap-2"
+                              ><IconComponent type="save" color="white" size="12"></IconComponent>Modifier
+                           </span>
+                        </button>
                      </form>
-                     <h1 v-else>{{ fullname }}</h1>
-                     <div>
-                        <IconComponent type="place" size="12" color="grey"></IconComponent>
-                        <h6 :style="!city ? 'font-style: italic' : ''">{{ form.city ? form.city : "non renseigné" }}</h6>
-                     </div>
-
-                     <div>
-                        <EditButtonComponent :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
-                        <IconComponent type="certified"></IconComponent>
+                     <div v-else>
+                        <div class="flex flex-col !items-start">
+                           <h1>{{ fullname }}</h1>
+                           <div>
+                              <IconComponent type="place" size="12" color="grey"></IconComponent>
+                              <h6 :style="!city ? 'font-style: italic' : ''">
+                                 {{ form.city ? form.city + " (" + form.city_department + ")" : "non renseigné" }}
+                              </h6>
+                           </div>
+                        </div>
+                        <div>
+                           <EditButtonComponent :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
+                           <IconComponent type="certified"></IconComponent>
+                        </div>
                      </div>
                   </template>
                </div>
@@ -45,7 +55,7 @@ import { useAuth } from "../../../store/useAuth";
 import { mapActions, mapState } from "pinia";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
-   props: ["id", "first_name", "last_name", "user_loaded", "city"],
+   props: ["id", "first_name", "last_name", "user_loaded", "city", "city_department"],
    data() {
       return {
          is_user_logged: true,
@@ -64,6 +74,7 @@ export default {
          this.form.first_name = this.first_name;
          this.form.name = this.last_name;
          this.form.city = this.city;
+         this.form.city_department = this.city_department;
       },
    },
    computed: {
@@ -93,6 +104,7 @@ export default {
          try {
             const result = await axios.post(`/user/${this.id}/update/`, { form: form });
             this.loading = false;
+            this.edit = false;
          } catch (error) {
             console.error(error);
          }
@@ -162,7 +174,7 @@ $mydarkgrey: #7a868c;
       }
    }
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
    .user-header-container__infos_img {
       width: 100px !important;
       height: 100px !important;
@@ -183,7 +195,6 @@ $mydarkgrey: #7a868c;
                }
                .input-form {
                   .myinput {
-                     width: 120px !important;
                      font-size: 16px !important;
                   }
                }
