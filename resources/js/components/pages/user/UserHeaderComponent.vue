@@ -2,34 +2,69 @@
    <div class="user-header-container">
       <div class="user-header-container__background"></div>
       <div class="user-header-container__infos">
-         <div class="user-header-container__infos_img"></div>
-         <div class="user-header-container__infos_main">
-            <div class="infos__main_text">
+         <div v-if="!edit" class="user-header-container__infos_img lg:h-32 lg:w-32 h-16 w-16 overflow-hidden">
+            <img class="w-full h-full" :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`" alt="" />
+         </div>
+         <div v-else class="grid grid-cols-1">
+            <div class="flex items-center justify-center w-full relative">
+               <img class="absolute lg:h-32 lg:w-32 h-16 w-16 rounded-full" :src="form.profil_image" />
+               <label
+                  class="flex z-10 flex-col border-4 border-dashed lg:h-32 lg:w-32 h-16 w-16 hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-full"
+               >
+                  <div class="flex flex-col items-center justify-center w-100 h-100">
+                     <svg
+                        class="w-6 h-6 lg:w-10 lg:h-10 text-mydarkgrey group-hover:text-myprimary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        ></path>
+                     </svg>
+                  </div>
+                  <input type="file" @change="onFileChange($event)" class="hidden" />
+               </label>
+            </div>
+         </div>
+         <div class="user-header-container__infos_main items-center">
+            <div class="infos__main_text w-full">
                <div class="infos__main_name">
                   <VueSkeletonLoader v-if="loading" class="skeleton" type="rect" :width="300" :height="32" animation="fade" rounded />
                   <template v-else>
-                     <form @submit.prevent="updateUserProfil(form)" class="flex flex-1 flex-col input-form gap-2 input-form" v-if="edit">
-                        <input class="myinput big-input" v-model="lastNameUppercase" placeholder="NOM" type="text" />
-                        <input class="myinput big-input" v-model="form.first_name" placeholder="Prénom" type="text" />
-                        <input class="myinput" v-model="form.city" placeholder="Ville" type="text" />
-                        <SelectDepartmentComponent @update:department="form.city_department = $event"></SelectDepartmentComponent>
-                        <button class="btn btn-primary">
+                     <form @submit.prevent="updateUserProfil(form)" class="input-form flex flex-col lg:flex-row gap-2 input-form" v-if="edit">
+                        <div class="flex flex-1 flex-col w-full">
+                           <div class="flex w-full gap-1">
+                              <input class="myinput flex-1 sm:text-xs" v-model="lastNameUppercase" placeholder="NOM" type="text" />
+                              <input class="myinput flex-1 sm:text-xs" v-model="form.first_name" placeholder="Prénom" type="text" />
+                           </div>
+                           <div class="flex flex-1 gap-1">
+                              <input class="myinput sm:text-xs" v-model="form.city" placeholder="Ville" type="text" />
+                              <SelectDepartmentComponent @update:department="form.city_department = $event"></SelectDepartmentComponent>
+                           </div>
+                        </div>
+
+                        <button class="btn btn-primary py-1">
                            <span class="flex justify-center items-center gap-2"
                               ><IconComponent type="save" color="white" size="12"></IconComponent>Modifier
                            </span>
                         </button>
                      </form>
-                     <div v-else>
-                        <div class="flex flex-col !items-start">
+                     <div v-else class="flex flex-col md:flex-row items-start lg:justify-between lg:items-center">
+                        <div class="flex flex-col items-start">
                            <h1>{{ fullname }}</h1>
-                           <div>
+                           <div class="flex items-center">
                               <IconComponent type="place" size="12" color="grey"></IconComponent>
                               <h6 :style="!city ? 'font-style: italic' : ''">
                                  {{ form.city ? form.city + " (" + form.city_department + ")" : "non renseigné" }}
                               </h6>
                            </div>
                         </div>
-                        <div>
+                        <div v-if="is_editable" class="flex items-center">
                            <EditButtonComponent :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
                            <IconComponent type="certified"></IconComponent>
                         </div>
@@ -37,7 +72,7 @@
                   </template>
                </div>
             </div>
-            <div v-if="!is_user_logged" class="infos__main_button">
+            <div v-if="!is_editable" class="infos__main_button flex">
                <IconComponent type="comment"></IconComponent>
                <IconComponent type="like"></IconComponent>
             </div>
@@ -51,17 +86,17 @@ import VueSkeletonLoader from "skeleton-loader-vue";
 import SelectDepartmentComponent from "../../components/SelectDepartmentComponent.vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
-import { useAuth } from "../../../store/useAuth";
-import { mapActions, mapState } from "pinia";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
-   props: ["id", "first_name", "last_name", "user_loaded", "city", "city_department"],
+   props: ["id", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable"],
    data() {
       return {
          is_user_logged: true,
          edit: false,
          loading: false,
          form: {
+            profil_file: null,
+            profil_image: null,
             first_name: null,
             name: null,
             city: null,
@@ -89,25 +124,40 @@ export default {
             return this.form.name.toUpperCase();
          },
       },
-      ...mapActions(useAuth, {
-         async userLogged(store) {
-            const user_log = await store.userLog();
-            this.is_user_logged = user_log;
-            console.log(user_log);
-            return user_log;
-         },
-      }),
    },
    methods: {
       async updateUserProfil(form) {
          this.loading = true;
+         let formData = new FormData();
+         formData.append("image", this.form.profil_file);
+         formData.append("first_name", this.form.first_name);
+         formData.append("name", this.form.name);
+         formData.append("city", this.form.city);
+         formData.append("city_department", this.form.city_department);
+
          try {
-            const result = await axios.post(`/user/${this.id}/update/`, { form: form });
+            const result = await axios.post(`/user/${this.id}/update/`, formData);
             this.loading = false;
             this.edit = false;
          } catch (error) {
             console.error(error);
          }
+      },
+      onFileChange: function (e) {
+         var files = e.target.files || e.dataTransfer.files;
+         if (!files.length) return;
+         this.form.profil_file = files[0];
+         this.createImage(files[0]);
+      },
+      createImage(file) {
+         var image = new Image();
+         var reader = new FileReader();
+         var vm = this;
+
+         reader.onload = (e) => {
+            vm.form.profil_image = e.target.result;
+         };
+         reader.readAsDataURL(file);
       },
    },
 };
@@ -142,10 +192,8 @@ $mydarkgrey: #7a868c;
       z-index: 2;
       /* width: 100%; */
       .user-header-container__infos_img {
-         width: 120px;
          background-color: $mywhite;
          border-radius: 50%;
-         height: 120px;
       }
       .user-header-container__infos_main {
          flex: 1;
@@ -155,10 +203,6 @@ $mydarkgrey: #7a868c;
          .infos__main_text {
             h1 {
                margin: 0;
-            }
-            div {
-               display: flex;
-               align-items: center;
             }
             .infos__main_name {
                .input-form {
@@ -175,10 +219,6 @@ $mydarkgrey: #7a868c;
    }
 }
 @media only screen and (max-width: 1024px) {
-   .user-header-container__infos_img {
-      width: 100px !important;
-      height: 100px !important;
-   }
    .user-header-container__infos {
       gap: 16px !important;
       padding: 0 16px !important;
@@ -190,12 +230,11 @@ $mydarkgrey: #7a868c;
                h1 {
                   font-size: 24px !important;
                   line-height: 24px;
-                  max-width: 120px;
                   word-break: break-word;
                }
                .input-form {
                   .myinput {
-                     font-size: 16px !important;
+                     font-size: 13px !important;
                   }
                }
             }

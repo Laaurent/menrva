@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useAuth = defineStore("auth", {
    state: () => ({
-      user_log: {},
+      user_log: this.userLog(),
    }),
 
    getters: {},

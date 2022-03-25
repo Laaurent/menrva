@@ -3,10 +3,11 @@
       <!-- TITLE -->
       <div class="card-container_title mb-2">
          <h4>{{ card_type[type].name }}</h4>
-         <EditButtonComponent v-if="type == 'resume'" :edit="edit" :loading="loading" @update:click="edit = !edit" :size="16"></EditButtonComponent>
-         <button v-if="type == 'formation' || type == 'experience'" @click="edit = !edit">
-            <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent>
-         </button>
+         <template v-if="is_editable">
+            <EditButtonComponent v-if="type == 'resume'" :edit="edit" :loading="loading" @update:click="edit = !edit" :size="16"></EditButtonComponent>
+            <button v-if="type == 'formation' || type == 'experience'" @click="edit = !edit">
+               <IconComponent :type="edit ? 'close' : 'edit'" :size="16"></IconComponent></button
+         ></template>
       </div>
       <!-- BODY RESUME -->
       <div v-if="type == 'resume'" :class="!form.resume.resume ? 'unknown' : ''">
@@ -135,6 +136,7 @@ export default {
       resume: { required: false },
       formations: { required: false },
       experiences: { required: false },
+      is_editable: { required: true },
    },
    components: { VueSkeletonLoader, IconComponent, EditButtonComponent, SelectDepartmentComponent },
    data() {
@@ -186,9 +188,13 @@ export default {
       updated() {
          this.form.resume.resume = this.resume;
          this.form.formation.user_id = this.id;
-         this.formations_data = this.formations;
+         this.formations_data = this.formations?.sort((a, b) => {
+            return new Date(b.start_date) - new Date(a.start_date);
+         });
          this.form.experience.user_id = this.id;
-         this.experiences_data = this.experiences;
+         this.experiences_data = this.experiences?.sort((a, b) => {
+            return new Date(b.start_date) - new Date(a.start_date);
+         });
       },
    },
    methods: {
@@ -203,16 +209,17 @@ export default {
             if (type == "formation") {
                result = await axios.post(`/formation/store`, this.form.formation);
                //! A FIX
-               const formation_tmp = this.form.formation;
+               const formation_tmp = { ...this.form.formation };
                this.formations_data.push(formation_tmp);
-               /*  this.resetFormation(); */
+               this.resetFormation();
             }
             if (type == "experience") {
                result = await axios.post(`/experience/store`, this.form.experience);
                //! A FIX
-               const experience_tmp = this.form.experience;
+               const experience_tmp = { ...this.form.experience };
+               console.log(experience_tmp);
                this.experiences_data.push(experience_tmp);
-               /*  this.resetFormation(); */
+               this.resetFormation();
             }
             this.loading = false;
          } catch (error) {
@@ -241,6 +248,14 @@ export default {
          this.form.formation.start_date = null;
          this.form.formation.end_date = null;
          this.form.formation.city = null;
+         this.form.formation.city_department = null;
+      },
+      resetExperience() {
+         this.form.experience.name = null;
+         this.form.experience.start_date = null;
+         this.form.experience.end_date = null;
+         this.form.experience.city = null;
+         this.form.experience.city_department = null;
       },
    },
 };

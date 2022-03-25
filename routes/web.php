@@ -36,7 +36,7 @@ Route::group(
     function () {
 
         // USER
-        Route::get('/profil', [UserController::class, 'index'])->name('profil');
+        Route::get('/profil/{id?}', [UserController::class, 'index'])->name('profil');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::get('/user/auth', [UserController::class, 'auth'])->name('user.auth');
 

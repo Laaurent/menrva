@@ -2,85 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
-// RESET 
-@import 'reset';
+@import "~bootstrap/scss/bootstrap";
+// RESET
+@import "reset";
 // AUTH FILES
-@import './auth/login.scss';
+@import "./auth/login.scss";
 // APP Blade
-@import './layouts/navbar.scss';
+@import "./layouts/navbar.scss";
 
-@import './layouts/header.scss';
+@import "./layouts/header.scss";
 //pages
-@import './pages/user.scss';
+@import "./pages/user.scss";
 
-
-.main-block{
-    padding: 32px;
+.main-block {
+   padding: 32px;
 }
 
-.input-form{
-        text-align: left;
-        .mylabel{
-            font-size: 13px;
-            color: $mydarkgrey;
-        }
-        .myinput{
-            background-color: $mygrey3;
-            border: 1px solid $mygrey2;
-            width: 100%;
-            padding: 4px 8px;
-            border-radius: 4px;
-            &:focus-visible{
-               outline-color: $myprimary;
-            }
-        }
-        .mytextarea{
-            border: 1px solid $myprimary;
-        }
-    }
-
-    .invalid-feedback{
-        font-size:12px;
-        color: $myred;
-        font-family: RobotoThin;
-    }
-
-.btn{
-    border-radius: 8px;
-    padding: 8px 16px;
-}
-.btn-primary{
-    background: $myprimary;
+.input-form {
+   text-align: left;
+   .mylabel {
+      font-size: 13px;
+      color: $mydarkgrey;
+   }
+   .myinput {
+      background-color: $mygrey3;
+      border: 1px solid $mygrey2;
+      width: 100%;
+      padding: 4px 8px;
+      border-radius: 4px;
+      &:focus-visible {
+         outline-color: $myprimary;
+      }
+   }
+   .mytextarea {
+      border: 1px solid $myprimary;
+   }
 }
 
-.skeleton{
-    margin: 4px 0 !important;
-}
-.skeleton_full{
-    width: 100% !important;
-}
-
-.unknown{
-    color: $mydarkgrey;
-    font-style: italic;
-    font-size: 13px;
-}
-.text-secondary{
-    color: $mydarkgrey;
-    font-size: 13px;
-}
-.text-primary{
-    color: $myprimary;
+.invalid-feedback {
+   font-size: 12px;
+   color: $myred;
+   font-family: RobotoThin;
 }
 
-.text-danger{
-    color: $myred;
+.btn {
+   border-radius: 8px;
+   padding: 8px 16px;
+}
+.btn-primary {
+   background: $myprimary;
+}
+
+.skeleton {
+   margin: 4px 0 !important;
+}
+.skeleton_full {
+   width: 100% !important;
+}
+
+.unknown {
+   color: $mydarkgrey;
+   font-style: italic;
+   font-size: 13px;
+}
+.text-secondary {
+   color: $mydarkgrey;
+   font-size: 13px;
+}
+.text-primary {
+   color: $myprimary;
+}
+
+.text-danger {
+   color: $myred;
 }
