@@ -3,9 +3,10 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -37,12 +38,19 @@ class CreateNewUser implements CreatesNewUsers
             'confirmed'     => 'Le mot de passe ne correspond pas'
         ])->validate();
 
-        return User::create([
+        $user = User::insertGetId([
             'user_type_id' => $input['user_type_id'],
             'name' => $input['name'],
             'first_name' => $input['first_name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        if ($user) {
+            Storage::copy('public/avatars/avatar.png', "public/avatars/$user/avatar.png");
+            Storage::copy('public/avatars/background.png', "public/avatars/$user/background.png");
+        }
+
+        return User::find($user);
     }
 }

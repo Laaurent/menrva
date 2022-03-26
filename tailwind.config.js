@@ -14,6 +14,9 @@ module.exports = {
             myred: "#EB4F4F",
             mygreen: "#0acf83",
          },
+         zIndex: {
+            negative: -1,
+         },
       },
    },
    variants: {

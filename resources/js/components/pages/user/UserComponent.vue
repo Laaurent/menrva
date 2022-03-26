@@ -30,12 +30,12 @@
                ></UserCardComponent>
             </div>
             <div class="user-cards_row">
-               <UserCardComponent
+               <!-- <UserCardComponent
                   type="other"
                   :id="user_tmp ? user_tmp.data.id : null"
                   :user_loaded="user_loaded"
                   :is_editable="is_user_logged"
-               ></UserCardComponent>
+               ></UserCardComponent> -->
                <UserCardComponent
                   :experiences="user_tmp ? user_tmp.data.experiences : null"
                   type="experience"

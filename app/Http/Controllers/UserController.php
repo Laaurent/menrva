@@ -30,13 +30,24 @@ class UserController extends Controller
     {
         $data = $request->all();
 
-        $path = Storage::putFileAs(
-            'public/avatars/' . Auth::id(),
-            $request->image,
-            'avatar.png'
-        );
+        if (isset($request->image) && $request->image != 'null') {
+            $path = Storage::putFileAs(
+                'public/avatars/' . Auth::id(),
+                $data['image'],
+                'avatar.png'
+            );
+            unset($data['image']);
+        }
+        if (isset($request->background) && $request->background != 'null') {
+            $path = Storage::putFileAs(
+                'public/avatars/' . Auth::id(),
+                $data['background'],
+                'background.png'
+            );
+            unset($data['background']);
+        }
 
-        unset($data['image']);
+
         $success = User::find($id)->update($data);
 
         return $success;
