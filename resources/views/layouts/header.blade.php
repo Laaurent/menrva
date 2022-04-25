@@ -1,10 +1,17 @@
-<div class="header-container items-center">
-    <div class="flex items-center">
-        <button class="btn open-menu" onclick="myOpen();">
-            <x-coolicon-grid-big-round />
-        </button>
+<div class="header-container lg:items-center">
+    <div class="flex lg:items-center flex-col lg:flex-row gap-4">
+        <div>
+            <button class="btn open-menu" onclick="myOpen();">
+                <x-coolicon-grid-big-round />
+            </button>
+        </div>
         @if (Auth::check())
-        <span>Bonjour, <b>{{ Auth::user()->first_name }}</b> !</span>
+        <div class="flex gap-2 items-center">
+
+
+            <emoji-component type="hello"></emoji-component><span> Bonjour, <b>{{ Auth::user()->first_name }}</b>
+                !</span>
+        </div>
         @endif
     </div>
     <div class="header-container__log-links">
@@ -16,7 +23,7 @@
         @else
         <form method="post" action="{{ route('logout') }}">
             {{ csrf_field() }}
-            <button class="btn">
+            <button class="btn mt-1">
                 <x-coolicon-home-minus />
             </button>
         </form>

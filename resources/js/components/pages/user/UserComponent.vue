@@ -11,7 +11,6 @@
             :user_loaded="user_loaded"
             :is_editable="is_user_logged"
          ></UserHeaderComponent>
-
          <div class="user-cards-container">
             <div class="user-cards_row">
                <UserCardComponent
@@ -63,6 +62,7 @@ export default {
          user_tmp: null,
          error_code: 200,
          user_loaded: true,
+         user_suggestions: null,
       };
    },
    mounted() {

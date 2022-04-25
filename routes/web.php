@@ -35,10 +35,13 @@ Route::group(
     ['middleware' => 'auth'],
     function () {
 
-        // USER
+
+        //USER
         Route::get('/profil/{id?}', [UserController::class, 'index'])->name('profil');
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::get('/user/auth', [UserController::class, 'auth'])->name('user.auth');
+        Route::post('/users/all', [UserController::class, 'all'])->name('user.all');
+        Route::get('/users/suggestions/{id}', [UserController::class, 'suggestions'])->name('user.suggestion');
 
         // FORMATION
         Route::post('/formation/store', [FormationController::class, 'store'])->name('formation.store');
@@ -47,6 +50,7 @@ Route::group(
         // EXPERIENCE
         Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
         Route::post('/experience/delete', [ExperienceController::class, 'destroy'])->name('experience.delete');
+
 
         Route::get('/parametres', function () {
             return view('home');
