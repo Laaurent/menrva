@@ -1,9 +1,9 @@
 <template>
-   <section class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
-      <article class="flex items-center gap-3">
+   <section :style="width ? 'min-width: 350px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
+      <article class="flex items-center gap-3 h-16">
          <img class="w-16 h-16 rounded-full object-cover" :src="`/storage/avatars/${user.id}/avatar.png`" alt="user image" />
          <div>
-            <h3 class="text-black">{{ user.name.toUpperCase() }} {{ user.first_name }}</h3>
+            <h3 class="text-black text-lg">{{ user.name.toUpperCase() }} {{ user.first_name }}</h3>
             <h6 class="leading-none" v-if="user.last_formation[0]">
                {{ user.last_formation[0].name }}
             </h6>
@@ -14,7 +14,7 @@
          </div>
       </article>
       <article class="flex flex-col w-full">
-         <p class="text-sm line-clamp-3 my-4" :class="!user.resume ? 'text-mydarkgrey text-xs' : ''">
+         <p class="text-sm line-clamp-3 my-4 h-16" :class="!user.resume ? 'text-mydarkgrey text-xs' : ''">
             {{ user.resume ? user.resume : "Aucune information supplémentaire..." }}
          </p>
          <div class="flex justify-end">
@@ -32,6 +32,9 @@ export default {
    props: {
       user: {
          required: true,
+      },
+      width: {
+         default: false,
       },
    },
    components: { IconComponent },

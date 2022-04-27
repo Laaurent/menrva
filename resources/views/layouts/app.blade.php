@@ -28,7 +28,7 @@
                 <div class="side-block" id="side-block">
                     @include('layouts.navbar')
                 </div>
-                <div class="main-block">
+                <div class="main-block w-full xl:w-1/2">
                     @include('layouts.header')
                     @yield('content')
                 </div>

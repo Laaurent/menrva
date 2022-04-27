@@ -14,7 +14,7 @@
         </div>
         @endif
     </div>
-    <div class="header-container__log-links">
+    <div class="header-container__log-links mt-1">
         @if (!Auth::check())
         <button-component type="empty" text="Se connecter" :url="{{ json_encode(route('login')) }}">
         </button-component>

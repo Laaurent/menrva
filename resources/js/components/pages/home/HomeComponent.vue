@@ -3,40 +3,18 @@
       <!-- HEADER -->
       <article class="flex flex-col xl:flex-row py-4">
          <div class="flex xl:items-center flex-col xl:flex-row gap-2">
-            <form class="w-full flex-1 flex items-center gap-3" @submit.prevent="getAllUsers()">
-               <div class="w-full relative text-gray-600 focus-within:text-gray-400 bg-mygrey3 rounded-md flex">
-                  <div class="flex items-center">
-                     <IconComponent type="place" size="16" color="grey"></IconComponent>
-                     <input
-                        v-model="users.place"
-                        type="search"
-                        name="p"
-                        class="xl:w-36 w-full py-2 text-sm pr-10 focus:outline-none focus:text-gray-900 bg-mygrey3 rounded-md"
-                        placeholder="Localisation..."
-                        autocomplete="off"
-                     />
-                  </div>
-                  <div class="flex items-center">
-                     <IconComponent type="flag" size="16" color="grey"></IconComponent>
-                     <input
-                        v-model="users.pattern"
-                        type="search"
-                        name="q"
-                        class="xl:w-96 w-full py-2 text-sm pr-10 focus:outline-none focus:text-gray-900 bg-mygrey3 rounded-md"
-                        placeholder="Mots clés..."
-                        autocomplete="off"
-                     />
-                  </div>
+            <SearchbarComponent
+               :pattern_text="pattern != 'null' ? pattern : ''"
+               :place_text="place != 'null' ? place : ''"
+               @submitForm="
+                  users.pattern = $event.pattern;
+                  users.place = $event.place;
+                  getAllUsers();
+               "
+            ></SearchbarComponent>
 
-                  <span class="absolute inset-y-0 right-0 flex items-center pr-2">
-                     <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
-                        <IconComponent type="search" size="16"></IconComponent>
-                     </button>
-                  </span>
-               </div>
-            </form>
             <div class="flex justify-between items-center gap-2">
-               <p class="text-mydarkgrey text-xs">{{ users.data ? users.data.length : 0 }} Résultat(s)</p>
+               <p class="text-mydarkgrey text-xs">{{ users.data ? users.total : 0 }} Résultat(s)</p>
                <!-- <DropdownComponent type="filter"></DropdownComponent> -->
             </div>
          </div>
@@ -61,8 +39,19 @@
 import DropdownComponent from "../../components/DropdownComponent.vue";
 import HomeUserCardComponent from "./HomeUserCardComponent.vue";
 import PaginationComponent from "../../components/PaginationComponent.vue";
+import SearchbarComponent from "../../components/SearchbarComponent.vue";
 export default {
-   components: { DropdownComponent, HomeUserCardComponent, PaginationComponent },
+   props: {
+      place: {
+         type: String,
+         required: true,
+      },
+      pattern: {
+         type: String,
+         required: true,
+      },
+   },
+   components: { DropdownComponent, HomeUserCardComponent, PaginationComponent, SearchbarComponent },
    data() {
       return {
          users: {
@@ -83,6 +72,8 @@ export default {
       };
    },
    mounted() {
+      this.pattern != "null" && (this.users.pattern = this.pattern);
+      this.place != "null" && (this.users.place = this.place);
       this.getAllUsers();
    },
    methods: {

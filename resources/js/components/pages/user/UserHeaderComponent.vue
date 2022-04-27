@@ -83,7 +83,7 @@
                      </form>
                      <div v-else class="flex flex-col md:flex-row items-start lg:justify-between lg:items-center">
                         <div class="flex flex-col items-start">
-                           <h1>{{ fullname }}</h1>
+                           <h1 class="text-lg">{{ fullname }}</h1>
                            <div class="flex items-center">
                               <IconComponent type="place" size="12" color="grey"></IconComponent>
                               <h6 :style="!city ? 'font-style: italic' : ''" class="leading-none">

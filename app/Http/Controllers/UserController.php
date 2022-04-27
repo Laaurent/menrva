@@ -37,6 +37,7 @@ class UserController extends Controller
             ->when($request->has('lastformation'), function ($query) {
                 return $query->with('lastFormation');
             })
+            ->where('user_type_id', 1)
             ->paginate(9);
         return response()->json($users);
     }
@@ -92,6 +93,7 @@ class UserController extends Controller
         $user = User::where('id', $id)->firstOrFail();
 
         $users = User::where('id', '!=', $id)
+            ->where('user_type_id', 1)
             ->where('id', '!=', Auth::id())
             ->where('city', $user->city)
             ->orWhere('city_department', $user->city_department)
