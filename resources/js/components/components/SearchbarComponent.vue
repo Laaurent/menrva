@@ -31,7 +31,10 @@
          </span>
       </div>
       <div v-if="search_button" class="flex flex-col items-center">
-         <button class="btn btn-primary !px-10">Recherche</button>
+         <button class="btn btn-primary !px-8 !flex items-center gap-2">
+            <IconComponent type="search" color="white"></IconComponent>
+            <span>Recherche</span>
+         </button>
          <!--  <a href="/register">S'inscrire</a> -->
       </div>
    </form>
@@ -39,6 +42,7 @@
 
 <script>
 import IconComponentVue from "./svg/IconComponent.vue";
+import IconComponent from "./svg/IconComponent.vue";
 export default {
    props: {
       search_button: {
@@ -56,6 +60,7 @@ export default {
    },
    components: {
       IconComponentVue,
+      IconComponent,
    },
    data() {
       return {

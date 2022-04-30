@@ -14,7 +14,7 @@
          </div>
       </article>
       <article class="flex flex-col w-full">
-         <p class="text-sm line-clamp-3 my-4 h-16" :class="!user.resume ? 'text-mydarkgrey text-xs' : ''">
+         <p class="text-sm line-clamp-3 my-4 h-14" :class="!user.resume ? 'text-mydarkgrey text-xs' : ''">
             {{ user.resume ? user.resume : "Aucune information supplémentaire..." }}
          </p>
          <div class="flex justify-end">

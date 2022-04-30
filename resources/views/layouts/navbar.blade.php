@@ -2,7 +2,7 @@
     <div class="nav-container_item">
         <div class="nav-container_item_header">
             <div class="nav-container_item_header_logo">
-                <img src="/ressources/img/svg/Logo.svg" alt="Logo of menrva" height="100" width="150">
+                <img src="{{ asset('/img/svg/Logo.svg') }}" alt="Logo of menrva" height="100" width="150">
             </div>
             <button class="btn close-menu" onclick="myClose();">
                 <x-coolicon-close-small />

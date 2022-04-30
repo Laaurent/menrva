@@ -483,6 +483,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .flex{
   display: flex;
 }
+.\!flex{
+  display: flex !important;
+}
 .table{
   display: table;
 }
@@ -521,6 +524,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-12{
   height: 3rem;
+}
+.h-14{
+  height: 3.5rem;
 }
 .min-h-screen{
   min-height: 100vh;
@@ -733,6 +739,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.\!px-8{
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
 }
 .pt-8{
   padding-top: 2rem;
@@ -12223,6 +12233,24 @@ button {
   border: none;
   background: none;
   padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+.steps::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F6F6F6;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E7ECEE;
+  border-radius: 50px;
 }
 
 main {

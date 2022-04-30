@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +28,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Test1234'),
         ]);
 
-        User::factory()->count(20)->create();
+        Storage::copy('public/avatars/avatar.png', "public/avatars/1/avatar.png");
+        Storage::copy('public/avatars/background.png', "public/avatars/1/background.png");
+
+        $users = User::factory()->count(20)->create();
+
+        $users->each(function ($user) {
+            Storage::copy('public/avatars/avatar.png', "public/avatars/$user->id/avatar.png");
+            Storage::copy('public/avatars/background.png', "public/avatars/$user->id/background.png");
+        });
     }
 }

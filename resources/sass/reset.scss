@@ -72,3 +72,20 @@ button{
     background: none;
     padding: 0;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+ }
+ .steps::-webkit-scrollbar {
+    width: 4px;
+ }
+ 
+ ::-webkit-scrollbar-track {
+    background-color: $mygrey3;
+    border-radius: 50px;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+    background-color: $mygrey2;
+    border-radius: 50px;
+ }

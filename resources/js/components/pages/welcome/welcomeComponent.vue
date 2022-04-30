@@ -16,7 +16,7 @@
 
       <article>
          <h4 class="text-lg">Les nouveaux diplômés</h4>
-         <div class="flex overflow-x-scroll gap-3">
+         <div class="flex overflow-x-scroll gap-3 py-2">
             <HomeUserCardComponent v-for="(user, index) in users.data" :key="index" :user="user" :width="true"></HomeUserCardComponent>
          </div>
       </article>
