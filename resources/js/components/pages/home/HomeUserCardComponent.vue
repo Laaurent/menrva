@@ -3,8 +3,8 @@
       <article class="flex items-center gap-3 h-16">
          <img class="w-16 h-16 rounded-full object-cover" :src="`/storage/avatars/${user.id}/avatar.png`" alt="user image" />
          <div>
-            <h3 class="text-black text-lg">{{ user.name.toUpperCase() }} {{ user.first_name }}</h3>
-            <h6 class="leading-none" v-if="user.last_formation[0]">
+            <h3 class="text-black text-lg mb-0">{{ user.name.toUpperCase() }} {{ user.first_name }}</h3>
+            <h6 class="leading-none text-myprimary my-0" v-if="user.last_formation[0]">
                {{ user.last_formation[0].name }}
             </h6>
             <div class="flex items-center mt-2 text-mydarkgrey" v-if="this.user.city">

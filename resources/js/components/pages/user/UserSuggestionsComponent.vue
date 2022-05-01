@@ -4,14 +4,16 @@
          <h5>SUGGESTIONS</h5>
          <a class="hidden xl:block" href="/">voir tout</a>
       </article>
-      <article class="flex justify-between items-center py-2" v-for="(user, index) in user_suggestions" :key="'user_sugg_' + index">
+      <article v-if="user_suggestions.length == 0" class="text-mydarkgrey italic text-sm my-2">Aucune suggestion...</article>
+      <article v-else class="flex justify-between items-center py-2" v-for="(user, index) in user_suggestions" :key="'user_sugg_' + index">
          <div class="flex gap-3">
             <div class="w-12 h-12 rounded-full overflow-hidden">
                <img class="w-full h-full object-cover" :src="`/storage/avatars/${user.id}/avatar.png`" />
             </div>
             <div class="flex flex-col flex-1">
                <h5>{{ user.name.toUpperCase() }} {{ user.first_name }}</h5>
-               <span class="text-secondary">{{ user.city }} ({{ user.city_department }})</span>
+               <span class="text-secondary" v-if="user.city && user.city_department">{{ user.city }} ({{ user.city_department }})</span>
+               <span v-else class="text-mydarkgrey italic text-sm">Aucune localisation</span>
             </div>
          </div>
 

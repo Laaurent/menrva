@@ -41,6 +41,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     ];
 
+
+
     /**
      * The attributes that should be cast.
      *
@@ -50,13 +52,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        'lastFormationDate'
+    ];
+
+    public function getlastFormationDateAttribute()
+    {
+        return $this->lastFormation[0]->end_date;
+    }
+
     public function formations()
     {
-        return $this->hasMany(Formation::class);
+        return $this->hasMany(Formation::class)->latest();
     }
     public function experiences()
     {
-        return $this->hasMany(Experience::class);
+        return $this->hasMany(Experience::class)->latest();
     }
 
     public function lastExperience()

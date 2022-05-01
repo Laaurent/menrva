@@ -18,8 +18,8 @@ class UserFactory extends Factory
        
 
         return [
-            'first_name' => $this->faker->name(),
-            'name' => $this->faker->name(),
+            'first_name' => $this->faker->firstName(),
+            'name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'resume' => $this->faker->text(),
             'city' => $this->faker->city(),

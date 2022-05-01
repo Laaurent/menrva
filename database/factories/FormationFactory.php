@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ExperienceFactory extends Factory
+class FormationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,11 +14,13 @@ class ExperienceFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company(),
+
+            'name' => $this->faker->jobTitle(),
             'city' => $this->faker->city(),
             'city_department' => $this->faker->departmentNumber(),
             'start_date' => $this->faker->date('Y-m-d', 'now'),
             'end_date' => $this->faker->date('Y-m-d', 'now'),
+
         ];
     }
 }

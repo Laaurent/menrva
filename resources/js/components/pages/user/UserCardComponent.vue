@@ -1,5 +1,5 @@
 <template>
-   <div class="card-container min-h-[360px]" :class="card_type[type].size == 1 ? 'maw-w-full lg:!w-[360px]' : 'flex-1'">
+   <div class="card-container xl:min-h-[360px]" :class="card_type[type].size == 1 ? 'maw-w-full lg:!w-[360px]' : 'flex-1'">
       <!-- TITLE -->
       <div class="card-container_title mb-2">
          <h4>{{ card_type[type].name }}</h4>
@@ -44,8 +44,8 @@
                   <div class="w-full">
                      <h5 class="name break-words">{{ formation.name }}</h5>
                      <p class="text-primary">
-                        {{ formation.start_date }} -
-                        <span :class="!formation.end_date ? 'italic' : ''">{{ formation.end_date ? formation.end_date : "Aujourd'hui" }}</span>
+                        {{ month_format(formation.start_date) }} -
+                        <span :class="!formation.end_date ? 'italic' : ''">{{ formation.end_date ? month_format(formation.end_date) : "Aujourd'hui" }}</span>
                      </p>
                      <p class="flex items-center text-secondary">
                         <IconComponent type="place" size="12" color="grey"></IconComponent> {{ formation.city }} - ({{ formation.city_department }})
@@ -85,8 +85,8 @@
                   <div class="w-full">
                      <h5 class="name break-words">{{ experience.name }}</h5>
                      <p class="text-primary">
-                        {{ experience.start_date }} -
-                        <span :class="!experience.end_date ? 'italic' : ''">{{ experience.end_date ? experience.end_date : "Aujourd'hui" }}</span>
+                        {{ month_format(experience.start_date) }} -
+                        <span :class="!experience.end_date ? 'italic' : ''">{{ experience.end_date ? month_format(experience.end_date) : "Aujourd'hui" }}</span>
                      </p>
                      <p class="flex items-center text-secondary">
                         <IconComponent type="place" size="12" color="grey"></IconComponent> {{ experience.city }} - ({{ experience.city_department }})
@@ -128,6 +128,8 @@ import VueSkeletonLoader from "skeleton-loader-vue";
 import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import SelectDepartmentComponent from "../../components/SelectDepartmentComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
+import moment from "moment";
+import "moment/locale/fr";
 export default {
    props: {
       id: { required: true },
@@ -198,6 +200,9 @@ export default {
       },
    },
    methods: {
+      month_format(value) {
+         return moment(value).format("MMMM YYYY");
+      },
       async updateUserProfil(type, form) {
          this.loading = true;
          try {

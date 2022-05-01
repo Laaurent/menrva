@@ -426,11 +426,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.mt-1{
-  margin-top: 0.25rem;
+.my-0{
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .mb-3{
   margin-bottom: 0.75rem;
+}
+.mt-1{
+  margin-top: 0.25rem;
 }
 .ml-1{
   margin-left: 0.25rem;
@@ -525,6 +529,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-12{
   height: 3rem;
 }
+.h-10{
+  height: 2.5rem;
+}
+.h-32{
+  height: 8rem;
+}
+.h-24{
+  height: 6rem;
+}
 .h-14{
   height: 3.5rem;
 }
@@ -533,9 +546,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .min-h-\[360px\]{
   min-height: 360px;
-}
-.w-full{
-  width: 100%;
 }
 .w-5{
   width: 1.25rem;
@@ -552,6 +562,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-40{
   width: 10rem;
 }
+.w-full{
+  width: 100%;
+}
 .w-16{
   width: 4rem;
 }
@@ -561,6 +574,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-12{
   width: 3rem;
 }
+.w-96{
+  width: 24rem;
+}
 .max-w-xl{
   max-width: 36rem;
 }
@@ -569,6 +585,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .flex-1{
   flex: 1 1 0%;
+}
+.basis-96{
+  flex-basis: 24rem;
 }
 .transform{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -681,6 +700,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(40 107 238 / var(--tw-bg-opacity));
 }
+.bg-mygrey3{
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 246 246 / var(--tw-bg-opacity));
+}
 .bg-mygrey2{
   --tw-bg-opacity: 1;
   background-color: rgb(231 236 238 / var(--tw-bg-opacity));
@@ -704,13 +727,13 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-1{
   padding: 0.25rem;
 }
-.py-4{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.py-4{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .px-6{
   padding-left: 1.5rem;
@@ -739,6 +762,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.px-5{
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 .\!px-8{
   padding-left: 2rem !important;
@@ -780,6 +807,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .font-medium{
   font-weight: 500;
+}
+.font-light{
+  font-weight: 300;
+}
+.font-thin{
+  font-weight: 100;
 }
 .uppercase{
   text-transform: uppercase;
@@ -843,6 +876,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-black{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-myprimary{
+  --tw-text-opacity: 1;
+  color: rgb(40 107 238 / var(--tw-text-opacity));
 }
 .underline{
   -webkit-text-decoration-line: underline;
@@ -12660,6 +12697,9 @@ main {
 }
 
 @media (min-width: 768px){
+  .md\:w-1\/2{
+    width: 50%;
+  }
   .md\:flex-row{
     flex-direction: row;
   }
@@ -12696,6 +12736,12 @@ main {
   .lg\:w-32{
     width: 8rem;
   }
+  .lg\:w-1\/2{
+    width: 50%;
+  }
+  .lg\:w-96{
+    width: 24rem;
+  }
   .lg\:flex-row{
     flex-direction: row;
   }
@@ -12705,6 +12751,9 @@ main {
   .lg\:justify-between{
     justify-content: space-between;
   }
+  .lg\:overflow-x-scroll{
+    overflow-x: scroll;
+  }
   .lg\:bg-mywhite{
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -12712,6 +12761,10 @@ main {
   .lg\:px-8{
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+  .lg\:px-96{
+    padding-left: 24rem;
+    padding-right: 24rem;
   }
   .lg\:px-36{
     padding-left: 9rem;
@@ -12723,14 +12776,17 @@ main {
   .xl\:block{
     display: block;
   }
-  .xl\:w-1\/2{
-    width: 50%;
+  .xl\:min-h-\[360px\]{
+    min-height: 360px;
   }
   .xl\:w-36{
     width: 9rem;
   }
   .xl\:w-96{
     width: 24rem;
+  }
+  .xl\:w-1\/2{
+    width: 50%;
   }
   .xl\:flex-row{
     flex-direction: row;
@@ -12743,5 +12799,12 @@ main {
   }
   .xl\:justify-end{
     justify-content: flex-end;
+  }
+  .xl\:overflow-x-scroll{
+    overflow-x: scroll;
+  }
+  .xl\:bg-mywhite{
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   }
 }

@@ -16,7 +16,7 @@
 
       <article>
          <h4 class="text-lg">Les nouveaux diplômés</h4>
-         <div class="flex overflow-x-scroll gap-3 py-2">
+         <div class="flex flex-col lg:flex-row lg:overflow-x-scroll gap-3 py-2">
             <HomeUserCardComponent v-for="(user, index) in users.data" :key="index" :user="user" :width="true"></HomeUserCardComponent>
          </div>
       </article>
@@ -50,7 +50,7 @@ export default {
          this.users.loading = true;
          let result = null;
          try {
-            result = await axios.post(`/users/all?page=${this.users.page}&lastformation`, {
+            result = await axios.post(`/users/all?page=${this.users.page}&lastformation&lastestformation`, {
                pattern: this.users.pattern,
                place: this.users.place,
                order: this.users.order,

@@ -39,6 +39,7 @@ class UserController extends Controller
             })
             ->where('user_type_id', 1)
             ->paginate(9);
+
         return response()->json($users);
     }
 
@@ -95,8 +96,10 @@ class UserController extends Controller
         $users = User::where('id', '!=', $id)
             ->where('user_type_id', 1)
             ->where('id', '!=', Auth::id())
-            ->where('city', $user->city)
-            ->orWhere('city_department', $user->city_department)
+            ->where(function ($query) use ($user) {
+                $query->where('city', $user->city)
+                    ->orWhere('city_department', $user->city_department);
+            })
             ->paginate(3);
 
         return response()->json($users);
