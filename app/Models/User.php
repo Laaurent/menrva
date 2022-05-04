@@ -63,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getlastFormationDateAttribute()
     {
-        return $this->lastFormation[0]->end_date;
+        return count($this->lastFormation) > 0 ? $this->lastFormation[0]->end_date : null;
     }
 
     public function formations()

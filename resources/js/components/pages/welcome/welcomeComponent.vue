@@ -45,21 +45,12 @@ export default {
       this.getAllUsers();
    },
    methods: {
-      async getAllUsers(page = 1, pattern = "") {
-         this.users.page = page;
+      async getAllUsers() {
          this.users.loading = true;
          let result = null;
          try {
-            result = await axios.post(`/users/all?page=${this.users.page}&lastformation&lastestformation`, {
-               pattern: this.users.pattern,
-               place: this.users.place,
-               order: this.users.order,
-               is_closed: this.type == "closed" ? 1 : 0,
-               client_id: this.client_id,
-            });
-            this.users.last_page = result.data.last_page;
-            this.users.total = result.data.total;
-            this.users.data = result.data.data;
+            result = await axios.get(`/users/lastformation`);
+            this.users.data = result.data;
          } catch (error) {
             result = error.response;
             console.error(error);

@@ -52,7 +52,7 @@
                      </p>
                   </div>
                   <div class="flex gap-2">
-                     <button><IconComponent type="info" :size="16"></IconComponent></button>
+                     <button @click="$emit('select:row', formation)"><IconComponent type="info" :size="16"></IconComponent></button>
                      <button v-if="edit" @click="deleteRow('formation', formation.id, index)">
                         <IconComponent type="trash" :size="16" color="red"></IconComponent>
                      </button>
@@ -93,7 +93,7 @@
                      </p>
                   </div>
                   <div class="flex gap-2">
-                     <button><IconComponent type="info" :size="16"></IconComponent></button>
+                     <button @click="$emit('select:row', experience)"><IconComponent type="info" :size="16"></IconComponent></button>
                      <button v-if="edit" @click="deleteRow('experience', experience.id, index)">
                         <IconComponent type="trash" :size="16" color="red"></IconComponent>
                      </button>

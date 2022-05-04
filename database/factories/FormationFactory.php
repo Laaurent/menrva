@@ -16,6 +16,7 @@ class FormationFactory extends Factory
         return [
 
             'name' => $this->faker->jobTitle(),
+            'resume' => $this->faker->sentence(),
             'city' => $this->faker->city(),
             'city_department' => $this->faker->departmentNumber(),
             'start_date' => $this->faker->date('Y-m-d', 'now'),

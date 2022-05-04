@@ -26,6 +26,10 @@
                   :id="user_tmp ? user_tmp.data.id : null"
                   :user_loaded="user_loaded"
                   :is_editable="is_user_logged"
+                  @select:row="
+                     selected_experience.data = $event;
+                     selected_experience.show = true;
+                  "
                ></UserCardComponent>
             </div>
             <div class="user-cards_row">
@@ -41,10 +45,20 @@
                   :id="user_tmp ? user_tmp.data.id : null"
                   :user_loaded="user_loaded"
                   :is_editable="is_user_logged"
+                  @select:row="
+                     selected_experience.data = $event;
+                     selected_experience.show = true;
+                  "
                ></UserCardComponent>
             </div>
          </div>
       </div>
+
+      <ModaleUserInformation
+         :data="selected_experience.data"
+         :is_open="selected_experience.show"
+         @close:modal="selected_experience.show = false"
+      ></ModaleUserInformation>
    </div>
 </template>
 
@@ -54,8 +68,9 @@ import UserHeaderComponent from "./UserHeaderComponent.vue";
 import AlertComponent from "../../components/AlertComponent.vue";
 import { useAuth } from "../../../store/useAuth";
 import { mapActions, mapState } from "pinia";
+import ModaleUserInformation from "../../components/ModaleUserInformation.vue";
 export default {
-   components: { UserHeaderComponent, AlertComponent },
+   components: { UserHeaderComponent, AlertComponent, ModaleUserInformation },
    props: ["user_id", "user_log"],
    data() {
       return {
@@ -63,6 +78,10 @@ export default {
          error_code: 200,
          user_loaded: true,
          user_suggestions: null,
+         selected_experience: {
+            data: null,
+            show: false,
+         },
       };
    },
    mounted() {

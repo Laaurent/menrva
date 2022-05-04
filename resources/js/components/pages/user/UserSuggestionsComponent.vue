@@ -4,7 +4,9 @@
          <h5>SUGGESTIONS</h5>
          <a class="hidden xl:block" href="/">voir tout</a>
       </article>
-      <article v-if="user_suggestions.length == 0" class="text-mydarkgrey italic text-sm my-2">Aucune suggestion...</article>
+      <article v-if="!user_suggestions || (user_suggestions && user_suggestions.length == 0)" class="text-mydarkgrey italic text-sm my-2">
+         Aucune suggestion...
+      </article>
       <article v-else class="flex justify-between items-center py-2" v-for="(user, index) in user_suggestions" :key="'user_sugg_' + index">
          <div class="flex gap-3">
             <div class="w-12 h-12 rounded-full overflow-hidden">
@@ -38,7 +40,6 @@ export default {
          try {
             let result = await axios.get(`/users/suggestions/${this.user_id}`);
             this.user_suggestions = result.data.data;
-            console.log(this.user_suggestions);
             this.error_code = 200;
             this.user_loaded = false;
          } catch (error) {

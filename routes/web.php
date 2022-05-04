@@ -32,6 +32,7 @@ Route::get('/user/{id}', [UserController::class, 'read'])->name('user.read');
 Route::post('/users/all', [UserController::class, 'all'])->name('user.all');
 Route::get('/users/suggestions/{id}', [UserController::class, 'suggestions'])->name('user.suggestion');
 Route::get('/profil/{id?}', [UserController::class, 'index'])->name('profil');
+Route::get('/users/lastformation', [UserController::class, 'lastFormation'])->name('user.lastFormation');
 
 Route::group(
     ['middleware' => 'auth'],

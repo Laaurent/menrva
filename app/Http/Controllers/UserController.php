@@ -87,7 +87,13 @@ class UserController extends Controller
         return $user;
     }
 
-    //CHECK SUGGESTION USERS
+    /**
+     * Get suggestions on based user
+     *
+     * @param Request $request
+     * @param Int $id
+     * @return void
+     */
     public function suggestions(Request $request, Int $id)
     {
 
@@ -103,5 +109,20 @@ class UserController extends Controller
             ->paginate(3);
 
         return response()->json($users);
+    }
+
+    /**
+     * Get 10 last users who have been diplomed
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function lastFormation(Request $request)
+    {
+        $users = User::all();
+        $users = $users->sortByDesc(function ($col) {
+            return $col->lastFormationDate;
+        })->take(10)->values()->all();
+        return $users;
     }
 }
