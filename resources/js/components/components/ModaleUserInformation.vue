@@ -2,8 +2,9 @@
    <div v-if="is_open" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-myblack/25">
       <div class="text-center bg-mywhite min-h-72 w-300 px-10 py-4 rounded-lg flex flex-col justify-between items-center">
          <div class="pt-4">
-            <h4>{{ data.name }}</h4>
-            <p class="text-primary">
+            <h6>{{ data.type }}</h6>
+            <h4 class="">{{ data.name }}</h4>
+            <p class="text-primary mb-2">
                {{ month_format(data.start_date) }} -
                <span :class="!data.end_date ? 'italic' : ''">{{ data.end_date ? month_format(data.end_date) : "Aujourd'hui" }}</span>
             </p>

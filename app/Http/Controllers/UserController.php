@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index($id = null)
     {
         $user_id = $id == null && Auth::check() ?  Auth::id() : $id;
-        return view('pages.user', compact('user_id'));
+        return view('pages.user.user', compact('user_id'));
     }
 
     public function all(Request $request)

@@ -10,6 +10,7 @@
             :city_department="user_tmp ? user_tmp.data.city_department : null"
             :user_loaded="user_loaded"
             :is_editable="is_user_logged"
+            :is_logged="user_log ? true : false"
          ></UserHeaderComponent>
          <div class="user-cards-container">
             <div class="user-cards_row">
@@ -29,6 +30,7 @@
                   @select:row="
                      selected_experience.data = $event;
                      selected_experience.show = true;
+                     selected_experience.type = 'Formation';
                   "
                ></UserCardComponent>
             </div>
@@ -48,6 +50,7 @@
                   @select:row="
                      selected_experience.data = $event;
                      selected_experience.show = true;
+                     selected_experience.type = 'Éxperience';
                   "
                ></UserCardComponent>
             </div>
@@ -81,6 +84,7 @@ export default {
          selected_experience: {
             data: null,
             show: false,
+            type: null,
          },
       };
    },

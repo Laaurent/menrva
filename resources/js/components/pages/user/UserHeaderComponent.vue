@@ -1,10 +1,10 @@
 <template>
    <div class="user-header-container">
       <div v-if="!edit" class="user-header-container__background overflow-hidden">
-         <img class="w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" alt="" />
+         <img v-if="id" class="w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" alt="" />
       </div>
       <div v-else class="flex items-center justify-center rounded-lg w-full h-36 relative overflow-hidden z-0">
-         <img class="absolute w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" />
+         <img v-if="id" class="absolute w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" />
          <label class="flex z-10 flex-col border-4 border-dashed w-full h-full hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-lg">
             <div class="flex flex-col items-center justify-center w-100 h-100">
                <svg
@@ -27,11 +27,17 @@
       </div>
       <div class="user-header-container__infos z-20" :class="edit ? 'mt-2 gap-4' : ''">
          <div v-if="!edit" class="user-header-container__infos_img lg:h-32 lg:w-32 h-16 w-16 overflow-hidden">
-            <img class="w-full h-full rounded-full object-cover" :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`" alt="" />
+            <img
+               v-if="id"
+               class="w-full h-full rounded-full object-cover"
+               :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`"
+               alt=""
+            />
          </div>
          <div v-else class="grid grid-cols-1">
             <div class="flex items-center justify-center w-full relative overflow-hidden">
                <img
+                  v-if="id"
                   class="absolute lg:h-32 lg:w-32 h-16 w-16 rounded-full object-cover"
                   :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`"
                />
@@ -91,21 +97,16 @@
                               </h6>
                            </div>
                         </div>
-                        <div v-if="is_editable" class="flex items-center">
-                           <EditButtonComponent
-                              size="20"
-                              :loading="loading"
-                              @update:click="edit = !edit"
-                              @update:user="updateUserProfil(form)"
-                           ></EditButtonComponent>
-                        </div>
                      </div>
                   </template>
                </div>
             </div>
-            <div v-if="!is_editable" class="infos__main_button flex justify-start">
+            <div v-if="is_logged && !edit" class="infos__main_button flex justify-start">
                <IconComponent type="comment" size="20"></IconComponent>
                <IconComponent type="like" size="20"></IconComponent>
+               <div v-if="is_editable" class="flex items-center">
+                  <EditButtonComponent size="20" :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
+               </div>
             </div>
          </div>
       </div>
@@ -119,7 +120,7 @@ import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
-   props: ["id", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable"],
+   props: ["id", "is_logged", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable"],
    data() {
       return {
          is_user_logged: true,

@@ -17,13 +17,9 @@ use App\Http\Controllers\ExperienceController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-Route::get('/rechercher', function () {
-    return view('home');
-})->name('search');
+Route::view('/', 'welcome')->name('home');
+Route::view('/rechercher', 'home')->name('search');
+Route::view('/ma-liste', 'pages.likes.index')->name('likes');
 
 // A DELETE
 

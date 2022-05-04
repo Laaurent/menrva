@@ -38,6 +38,14 @@
                 </div>
                 <div class="nav-link-item_point"></div>
             </li>
+            <li class="nav-link-item @if (request()->routeIs('likes')) isactive @endif">
+                <div class="nav-link-item_content">
+                    <x-coolicon-heart-outline /><a href="{{ route('likes') }}">
+                        Ma liste
+                    </a>
+                </div>
+                <div class="nav-link-item_point"></div>
+            </li>
             @endif
         </ul>
     </div>

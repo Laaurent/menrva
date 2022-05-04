@@ -1,5 +1,5 @@
 <template>
-   <div class="">
+   <div class="pt-8 xl:pt-0">
       <article class="flex justify-between">
          <h5>SUGGESTIONS</h5>
          <a class="hidden xl:block" href="/">voir tout</a>

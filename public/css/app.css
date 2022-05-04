@@ -760,6 +760,9 @@ input[type="range"]::-ms-fill-lower{
 .h-12{
   height: 3rem;
 }
+.h-40{
+  height: 10rem;
+}
 .min-h-screen{
   min-height: 100vh;
 }
@@ -795,6 +798,9 @@ input[type="range"]::-ms-fill-lower{
 }
 .w-12{
   width: 3rem;
+}
+.w-11{
+  width: 2.75rem;
 }
 .max-w-xl{
   max-width: 36rem;
@@ -879,6 +885,9 @@ input[type="range"]::-ms-fill-lower{
 }
 .border-4{
   border-width: 4px;
+}
+.border-0{
+  border-width: 0px;
 }
 .border-t{
   border-top-width: 1px;
@@ -1018,6 +1027,9 @@ input[type="range"]::-ms-fill-lower{
 }
 .font-medium{
   font-weight: 500;
+}
+.font-bold{
+  font-weight: 700;
 }
 .uppercase{
   text-transform: uppercase;
@@ -12714,7 +12726,7 @@ main {
   width: 100%;
   justify-content: space-between;
   /* align-items: center; */
-  height: 100px;
+  /* height: 60px; */
 }
 .header-container .open-menu {
   display: none;
@@ -12757,11 +12769,6 @@ main {
   .user-container .user-container__content .user-cards-container .user-cards_row {
     flex-direction: column;
     gap: 16px;
-  }
-}
-@media only screen and (max-width: 1180px) {
-  .user-container__side {
-    display: none;
   }
 }
 .main-block {
@@ -12991,5 +12998,8 @@ main {
   }
   .xl\:justify-end{
     justify-content: flex-end;
+  }
+  .xl\:pt-0{
+    padding-top: 0px;
   }
 }

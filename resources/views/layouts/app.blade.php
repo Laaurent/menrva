@@ -30,6 +30,7 @@
                 </div>
                 <div class="main-block w-full xl:w-1/2">
                     @include('layouts.header')
+                    
                     @yield('content')
                 </div>
         </main>

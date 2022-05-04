@@ -28,6 +28,13 @@
             </button>
         </form>
         @endif
-
     </div>
 </div>
+@if (Route::currentRouteName() !='home')
+<div class="mt-2">
+
+    <a href="{{ URL::previous() }}" class="w-12 flex items-center">
+        <icon-component type="left" size="12"></icon-component>retour
+    </a>
+</div>
+@endif
