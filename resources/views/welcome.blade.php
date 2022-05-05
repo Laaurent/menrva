@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-<welcome-component></welcome-component>
+<welcome-component :user_log="{{ Auth::check() ? 1 : 0 }}"></welcome-component>
 @endsection

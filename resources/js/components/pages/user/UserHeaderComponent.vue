@@ -103,8 +103,14 @@
             </div>
             <div v-if="is_logged && !edit" class="infos__main_button flex justify-start">
                <button class="btn p-0"><IconComponent type="comment" size="20"></IconComponent></button>
-               <button class="btn p-0" @click="$emit('update:like', !is_liked_by_auth_user)">
-                  <IconComponent :type="is_liked_by_auth_user ? 'liked' : 'like'" size="20"></IconComponent>
+               <button
+                  class="btn p-0"
+                  @click="
+                     $emit('update:like', !liked);
+                     liked = !liked;
+                  "
+               >
+                  <IconComponent :type="liked ? 'liked' : 'like'" size="20"></IconComponent>
                </button>
                <div v-if="is_editable" class="flex items-center">
                   <EditButtonComponent size="20" :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
@@ -138,6 +144,7 @@ export default {
             city: null,
             city_department: null,
          },
+         liked: this.is_liked_by_auth_user,
       };
    },
    watch: {

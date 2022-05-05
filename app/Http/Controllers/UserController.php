@@ -119,7 +119,7 @@ class UserController extends Controller
      */
     public function lastFormation(Request $request)
     {
-        $users = User::all();
+        $users = User::where('user_type_id', 1)->get();
         $users = $users->sortByDesc(function ($col) {
             return $col->lastFormationDate;
         })->take(10)->values()->all();

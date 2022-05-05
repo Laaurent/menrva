@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Playlist extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

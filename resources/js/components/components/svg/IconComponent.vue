@@ -112,6 +112,7 @@ export default {
    data() {
       return {
          colors: {
+            primary: "#286BEE",
             white: "#fff",
             black: "#212529",
             red: "#EB4F4F",

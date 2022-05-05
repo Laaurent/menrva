@@ -30,6 +30,17 @@
             <li>
                 <hr>
             </li>
+
+            @if (Auth::user()->user_type_id == 2)
+            <li class="nav-link-item @if (request()->routeIs('my-list')) isactive @endif">
+                <div class="nav-link-item_content">
+                    <x-coolicon-heart-outline /><a href="{{ route('my-list') }}">
+                        Mes listes
+                    </a>
+                </div>
+                <div class="nav-link-item_point"></div>
+            </li>
+            @else
             <li class="nav-link-item @if (request()->routeIs('profil')) isactive @endif">
                 <div class="nav-link-item_content">
                     <x-coolicon-user-circle /><a href="{{ route('profil') }}">
@@ -38,14 +49,8 @@
                 </div>
                 <div class="nav-link-item_point"></div>
             </li>
-            <li class="nav-link-item @if (request()->routeIs('my-list')) isactive @endif">
-                <div class="nav-link-item_content">
-                    <x-coolicon-heart-outline /><a href="{{ route('my-list') }}">
-                        Ma liste
-                    </a>
-                </div>
-                <div class="nav-link-item_point"></div>
-            </li>
+            @endif
+
             @endif
         </ul>
     </div>

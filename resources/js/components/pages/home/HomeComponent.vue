@@ -26,7 +26,14 @@
             <p class="text-mydarkgrey font-medium text-sm">Aucun utilisateur...</p>
          </div>
          <div class="flex flex-col xl:flex-row xl:flex-wrap items-center justify-center gap-2 w-full" v-else>
-            <HomeUserCardComponent class="w-full" v-for="(user, index) in users.data" :key="'userCard_' + index" :user="user"></HomeUserCardComponent>
+            <HomeUserCardComponent
+               class="w-full"
+               v-for="(user, index) in users.data"
+               :key="'userCard_' + index"
+               :user="user"
+               :user_log="user_log"
+               @update:like="updateLike($event)"
+            ></HomeUserCardComponent>
          </div>
          <article v-if="users.data.length > 0" class="flex justify-center xl:justify-end py-4">
             <PaginationComponent :last_page="users.last_page" :page="users.page" @page:update="getAllUsers($event)"></PaginationComponent>
@@ -48,6 +55,9 @@ export default {
       },
       pattern: {
          type: String,
+         required: true,
+      },
+      user_log: {
          required: true,
       },
    },
@@ -99,6 +109,19 @@ export default {
          } finally {
             this.users.status = result.status;
             this.users.loading = false;
+         }
+      },
+      async updateLike(event) {
+         try {
+            let result = null;
+            if (event.liked) {
+               result = await axios.post(`/likes/`, { user_id: event.user_id });
+            } else {
+               result = await axios.post(`/likes/delete`, { user_id: event.user_id });
+            }
+            this.status = result.data ? 200 : 500;
+         } catch (error) {
+            this.status = error.response.status;
          }
       },
    },

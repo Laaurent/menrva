@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlaylistRequest;
 use App\Http\Requests\UpdatePlaylistRequest;
 
@@ -13,9 +15,13 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $playlists = Playlist::when($request->has('user_id'), function ($query) use ($request) {
+            return $query->where('user_id', $request->query('user_id'));
+        })->with('likes')->get();
+
+        return response()->json($playlists);
     }
 
     /**
@@ -25,7 +31,6 @@ class PlaylistController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -34,9 +39,14 @@ class PlaylistController extends Controller
      * @param  \App\Http\Requests\StorePlaylistRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePlaylistRequest $request)
+    public function store()
     {
-        //
+
+        $playlist = Playlist::create([
+            'user_id' => Auth::id(),
+        ]);
+
+        return response()->json($playlist);
     }
 
     /**
@@ -79,8 +89,11 @@ class PlaylistController extends Controller
      * @param  \App\Models\Playlist  $playlist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Playlist $playlist)
+    public function destroy($id)
     {
-        //
+        $playlist = Playlist::findOrFail($id);
+        $playlist->delete();
+
+        return response()->json($playlist);
     }
 }

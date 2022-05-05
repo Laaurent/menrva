@@ -6,6 +6,7 @@ use App\Http\Controllers\FormationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PlaylistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\LikeController;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/rechercher', 'home')->name('search');
-Route::view('/ma-liste', 'pages.likes.index')->name('my-list');
+Route::view('/mes-listes', 'pages.likes.index')->name('my-list')->middleware('is_professionnal');
 
 // A DELETE
 
@@ -54,6 +55,11 @@ Route::group(
         Route::get('/likes', [LikeController::class, 'index'])->name('likes');
         Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
         Route::post('/likes/delete', [LikeController::class, 'destroy'])->name('likes.destroy');
+
+        //PLAYLISTS
+        Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists');
+        Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+        Route::delete('/playlists/{id}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
 
         Route::get('/parametres', function () {
             return view('home');

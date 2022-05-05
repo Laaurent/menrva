@@ -20,7 +20,14 @@
             <SpinnerComponent></SpinnerComponent>
          </div>
          <div v-else class="flex flex-col lg:flex-row lg:overflow-x-scroll gap-3 py-2">
-            <HomeUserCardComponent v-for="(user, index) in users.data" :key="index" :user="user" :width="true"></HomeUserCardComponent>
+            <HomeUserCardComponent
+               v-for="(user, index) in users.data"
+               :key="index"
+               :user="user"
+               :width="true"
+               :user_log="user_log"
+               @update:like="updateLike($event)"
+            ></HomeUserCardComponent>
          </div>
       </article>
    </section>
@@ -32,6 +39,11 @@ import HomeUserCardComponent from "../home/HomeUserCardComponent.vue";
 import SpinnerComponent from "../../components/SpinnerComponent.vue";
 export default {
    components: { SearchbarComponent, HomeUserCardComponent, SpinnerComponent },
+   props: {
+      user_log: {
+         required: true,
+      },
+   },
    data() {
       return {
          users: {
@@ -67,6 +79,19 @@ export default {
       searchUsers(event) {
          console.log(event);
          window.location = `/rechercher?pattern=${event.pattern}&place=${event.place}`;
+      },
+      async updateLike(event) {
+         try {
+            let result = null;
+            if (event.liked) {
+               result = await axios.post(`/likes/`, { user_id: event.user_id });
+            } else {
+               result = await axios.post(`/likes/delete`, { user_id: event.user_id });
+            }
+            this.users.status = result.data ? 200 : 500;
+         } catch (error) {
+            this.users.status = error.response.status;
+         }
       },
    },
 };

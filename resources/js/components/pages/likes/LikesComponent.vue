@@ -3,7 +3,7 @@
       <!-- Header -->
       <article class="flex items-center gap-2 mb-4">
          <h2 class="text-uppercase font-bold">Mes listes</h2>
-         <button>
+         <button @click="createPlaylist">
             <span class="flex items-center gap-1">
                <IconComponent type="plus" :size="12"></IconComponent>
                Nouveau
@@ -11,46 +11,49 @@
          </button>
       </article>
       <!-- en attente -->
-      <article class="">
-         <h5>En attente</h5>
-         <div>
-            <!--  empty state -->
-            <div v-if="pending.data && pending.data.length == 0" class="h-40 w-40 flex justify-center items-center">vide</div>
-            <div v-if="pending.loading" class="my-2">
-               <SpinnerComponent></SpinnerComponent>
-            </div>
-            <div v-else class="flex flex-row overflow-x-scroll gap-3 py-2">
-               <HomeUserCardComponent v-for="(like, index) in pending.data" :key="index" :user="like.user_liked" :width="true"></HomeUserCardComponent>
-            </div>
-         </div>
-      </article>
+      <PlaylistComponent :data="pending.data" :editable="false"></PlaylistComponent>
+      <!-- Mes playlists -->
+      <PlaylistComponent
+         v-for="(playlist, index) in playlists.data"
+         :id="playlist.id"
+         :data="playlist.likes"
+         :key="'myplaylist_' + index"
+         @destroy:playlist="deletePlaylist($event)"
+      ></PlaylistComponent>
    </section>
 </template>
 
 <script>
 import IconComponent from "../../components/svg/IconComponent.vue";
 import AlertComponent from "../../components/AlertComponent.vue";
+import PlaylistComponent from "./PlaylistComponent.vue";
 export default {
    props: {
       user_id: {
          required: true,
       },
    },
-   components: { IconComponent, AlertComponent },
+   components: { IconComponent, AlertComponent, PlaylistComponent },
    data() {
       return {
          user_tmp: null,
          error_code: 200,
          pending: {
-            user_tmp: null,
+            data: null,
+            error_code: 200,
+            loading: false,
+         },
+         playlists: {
             error_code: 200,
             loading: false,
             data: null,
          },
+         playlist_tmp: null,
       };
    },
    mounted() {
       this.getLikes();
+      this.getPlaylists();
    },
    methods: {
       async getLikes() {
@@ -63,6 +66,42 @@ export default {
             this.pending.error_code = error.response.status;
          } finally {
             this.pending.loading = false;
+         }
+      },
+      async getPlaylists() {
+         this.playlists.loading = true;
+         try {
+            const result = await axios.get(`/playlists?user_id=${this.user_id}`);
+            this.playlists.data = result.data;
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+         }
+      },
+      async createPlaylist() {
+         this.playlists.loading = true;
+         try {
+            const result = await axios.post(`/playlists`);
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+            this.getPlaylists();
+         }
+      },
+      async deletePlaylist(id) {
+         this.playlists.loading = true;
+         try {
+            const result = await axios.delete(`/playlists/${id}`);
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+            this.getPlaylists();
          }
       },
    },

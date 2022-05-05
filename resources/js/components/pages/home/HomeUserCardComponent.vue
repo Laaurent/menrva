@@ -17,7 +17,19 @@
          <p class="text-sm line-clamp-3 my-4 h-14" :class="!user.resume ? 'text-mydarkgrey text-xs' : ''">
             {{ user.resume ? user.resume : "Aucune information supplémentaire..." }}
          </p>
-         <div class="flex justify-end">
+         <div class="flex justify-end items-center gap-2">
+            <button
+               v-if="user_log"
+               class="btn p-0"
+               @click="
+                  liked = !liked;
+                  $emit('update:like', { liked: liked, user_id: user.id });
+               "
+            >
+               <IconComponent v-if="!liked" type="like" color="primary"></IconComponent>
+               <IconComponent v-else type="liked" color="primary"></IconComponent>
+            </button>
+
             <a :href="`/profil/${user.id}`" class="no-underline text-myblack bg-white rounded-full px-3 py-1 flex items-center gap-2">
                En savoir plus<IconComponent type="right" size="16"></IconComponent>
             </a>
@@ -36,6 +48,14 @@ export default {
       width: {
          default: false,
       },
+      user_log: {
+         default: 0,
+      },
+   },
+   data() {
+      return {
+         liked: this.user.isLikedByAuthUser,
+      };
    },
    components: { IconComponent },
    computed: {
