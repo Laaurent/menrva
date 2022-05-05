@@ -77,7 +77,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if (Auth::check()) {
             return $this->hasMany(Like::class, 'user_liked_id')->where('user_id', Auth::id());
-        }
+        } else 
+            return null
     }
     public function lastExperience()
     {
