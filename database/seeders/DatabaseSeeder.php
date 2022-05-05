@@ -32,8 +32,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Test1234'),
         ]);
 
-        Storage::disk('public')->copy("/avatars/avatar.png", "/avatars/1/avatar.png");
-        Storage::disk('public')->copy('/avatars/background.png', "/avatars/1/background.png");
+        if (!Storage::disk('public')->exists("/avatars/1/avatar.png") && !Storage::disk('public')->exists("/avatars/1/background.png")) {
+            Storage::disk('public')->copy("/avatars/avatar.png", "/avatars/1/avatar.png");
+            Storage::disk('public')->copy('/avatars/background.png', "/avatars/1/background.png");
+        }
+
+
 
         $users = User::factory()->count(20)->has(
             Experience::factory()->count(5)
@@ -42,8 +46,10 @@ class DatabaseSeeder extends Seeder
         )->create();
 
         $users->each(function ($user) {
-            Storage::disk('public')->copy('/avatars/avatar.png', "/avatars/$user->id/avatar.png");
-            Storage::disk('public')->copy('/avatars/background.png', "/avatars/$user->id/background.png");
+            if (!Storage::disk('public')->exists("/avatars/$user->id/avatar.png") && !Storage::disk('public')->exists("/avatars/$user->id/background.png")) {
+                Storage::disk('public')->copy('/avatars/avatar.png', "/avatars/$user->id/avatar.png");
+                Storage::disk('public')->copy('/avatars/background.png', "/avatars/$user->id/background.png");
+            }
         });
     }
 }
