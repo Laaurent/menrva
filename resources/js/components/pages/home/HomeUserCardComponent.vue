@@ -1,7 +1,7 @@
 <template>
    <section :style="width ? 'min-width: 350px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
       <article class="flex items-center gap-3 h-16">
-         <img class="w-16 h-16 rounded-full object-cover" :src="`/storage/avatars/${user.id}/avatar.png`" alt="user image" />
+         <img class="w-16 h-16 rounded-full object-cover" :src="`/img/avatars/${user.id}/avatar.png`" alt="user image" />
          <div>
             <h3 class="text-black text-lg mb-0">{{ user.name.toUpperCase() }} {{ user.first_name }}</h3>
             <h6 class="leading-none text-myprimary my-0" v-if="user.last_formation[0]">

@@ -10,7 +10,7 @@
       <article v-else class="flex justify-between items-center py-2" v-for="(user, index) in user_suggestions" :key="'user_sugg_' + index">
          <div class="flex gap-3">
             <div class="w-12 h-12 rounded-full overflow-hidden">
-               <img class="w-full h-full object-cover" :src="`/storage/avatars/${user.id}/avatar.png`" />
+               <img class="w-full h-full object-cover" :src="`/img/avatars/${user.id}/avatar.png`" />
             </div>
             <div class="flex flex-col flex-1">
                <h5>{{ user.name.toUpperCase() }} {{ user.first_name }}</h5>

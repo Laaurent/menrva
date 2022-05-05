@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Experience;
-use App\Models\Formation;
 use App\Models\User;
+use App\Models\Formation;
+use App\Models\Experience;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserTypeSeeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,8 +32,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Test1234'),
         ]);
 
-        Storage::copy('public/avatars/avatar.png', "public/avatars/1/avatar.png");
-        Storage::copy('public/avatars/background.png', "public/avatars/1/background.png");
+        Storage::disk('public')->copy("/avatars/avatar.png", "/avatars/1/avatar.png");
+        Storage::disk('public')->copy('/avatars/background.png', "/avatars/1/background.png");
 
         $users = User::factory()->count(20)->has(
             Experience::factory()->count(5)
@@ -40,8 +42,8 @@ class DatabaseSeeder extends Seeder
         )->create();
 
         $users->each(function ($user) {
-            Storage::copy('public/avatars/avatar.png', "public/avatars/$user->id/avatar.png");
-            Storage::copy('public/avatars/background.png', "public/avatars/$user->id/background.png");
+            Storage::disk('public')->copy('/avatars/avatar.png', "/avatars/$user->id/avatar.png");
+            Storage::disk('public')->copy('/avatars/background.png', "/avatars/$user->id/background.png");
         });
     }
 }

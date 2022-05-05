@@ -47,8 +47,8 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         if ($user) {
-            Storage::copy('public/avatars/avatar.png', "public/avatars/$user/avatar.png");
-            Storage::copy('public/avatars/background.png', "public/avatars/$user/background.png");
+            Storage::disk('public')->copy('/avatars/avatar.png', "/avatars/$user/avatar.png");
+            Storage::disk('public')->copy('/avatars/background.png', "/avatars/$user/background.png");
         }
 
         return User::find($user);

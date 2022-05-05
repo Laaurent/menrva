@@ -1,10 +1,10 @@
 <template>
    <div class="user-header-container">
       <div v-if="!edit" class="user-header-container__background overflow-hidden">
-         <img v-if="id" class="w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" alt="" />
+         <img v-if="id" class="w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/img/avatars/${id}/background.png`" alt="" />
       </div>
       <div v-else class="flex items-center justify-center rounded-lg w-full h-36 relative overflow-hidden z-0">
-         <img v-if="id" class="absolute w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/storage/avatars/${id}/background.png`" />
+         <img v-if="id" class="absolute w-full h-full object-cover" :src="form.bg_image ? form.bg_image : `/img/avatars/${id}/background.png`" />
          <label class="flex z-10 flex-col border-4 border-dashed w-full h-full hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-lg">
             <div class="flex flex-col items-center justify-center w-100 h-100">
                <svg
@@ -30,7 +30,7 @@
             <img
                v-if="id"
                class="w-full h-full rounded-full object-cover"
-               :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`"
+               :src="form.profil_image ? form.profil_image : `/img/avatars/${id}/avatar.png`"
                alt=""
             />
          </div>
@@ -39,7 +39,7 @@
                <img
                   v-if="id"
                   class="absolute lg:h-32 lg:w-32 h-16 w-16 rounded-full object-cover"
-                  :src="form.profil_image ? form.profil_image : `/storage/avatars/${id}/avatar.png`"
+                  :src="form.profil_image ? form.profil_image : `/img/avatars/${id}/avatar.png`"
                />
                <label
                   class="flex z-10 flex-col border-4 border-dashed lg:h-32 lg:w-32 h-16 w-16 hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-full"
