@@ -4,15 +4,22 @@ module.exports = {
    theme: {
       extend: {
          colors: {
-            myblack: "#102347",
+            myblack: "#1a3463",
             myprimary: "#286BEE",
             mygrey: "#FEFEFE",
             mywhite: "#FFFFFF",
             mygrey2: "#E7ECEE",
             mygrey3: "#F6F6F6",
             mydarkgrey: "#7A868C",
-            myred: "#EB4F4F",
+            myred: "#eb4f4f",
             mygreen: "#0acf83",
+            myblue: "#3069AC",
+
+            mylightyellow: "#FBF7D7",
+            mylightred: "#fff4f4",
+            mylightgreen: "#ebfdeb",
+            mylightblue: "#EAEFF9",
+            mylightpink: "#FFE9FF",
          },
          zIndex: {
             negative: -1,

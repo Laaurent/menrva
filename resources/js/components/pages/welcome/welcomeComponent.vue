@@ -16,7 +16,10 @@
 
       <article>
          <h4 class="text-lg">Les nouveaux diplômés</h4>
-         <div class="flex flex-col lg:flex-row lg:overflow-x-scroll gap-3 py-2">
+         <div v-if="users.loading" class="my-2">
+            <SpinnerComponent></SpinnerComponent>
+         </div>
+         <div v-else class="flex flex-col lg:flex-row lg:overflow-x-scroll gap-3 py-2">
             <HomeUserCardComponent v-for="(user, index) in users.data" :key="index" :user="user" :width="true"></HomeUserCardComponent>
          </div>
       </article>
@@ -26,8 +29,9 @@
 <script>
 import SearchbarComponent from "../../components/SearchbarComponent.vue";
 import HomeUserCardComponent from "../home/HomeUserCardComponent.vue";
+import SpinnerComponent from "../../components/SpinnerComponent.vue";
 export default {
-   components: { SearchbarComponent, HomeUserCardComponent },
+   components: { SearchbarComponent, HomeUserCardComponent, SpinnerComponent },
    data() {
       return {
          users: {

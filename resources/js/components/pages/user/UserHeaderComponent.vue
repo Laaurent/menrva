@@ -102,8 +102,10 @@
                </div>
             </div>
             <div v-if="is_logged && !edit" class="infos__main_button flex justify-start">
-               <IconComponent type="comment" size="20"></IconComponent>
-               <IconComponent type="like" size="20"></IconComponent>
+               <button class="btn p-0"><IconComponent type="comment" size="20"></IconComponent></button>
+               <button class="btn p-0" @click="$emit('update:like', !is_liked_by_auth_user)">
+                  <IconComponent :type="is_liked_by_auth_user ? 'liked' : 'like'" size="20"></IconComponent>
+               </button>
                <div v-if="is_editable" class="flex items-center">
                   <EditButtonComponent size="20" :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
                </div>
@@ -120,7 +122,7 @@ import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
-   props: ["id", "is_logged", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable"],
+   props: ["id", "is_logged", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable", "is_liked_by_auth_user"],
    data() {
       return {
          is_user_logged: true,

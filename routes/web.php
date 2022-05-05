@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\ExperienceController;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/rechercher', 'home')->name('search');
-Route::view('/ma-liste', 'pages.likes.index')->name('likes');
+Route::view('/ma-liste', 'pages.likes.index')->name('my-list');
 
 // A DELETE
 
@@ -49,6 +50,10 @@ Route::group(
         Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
         Route::post('/experience/delete', [ExperienceController::class, 'destroy'])->name('experience.delete');
 
+        //LIKES
+        Route::get('/likes', [LikeController::class, 'index'])->name('likes');
+        Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+        Route::post('/likes/delete', [LikeController::class, 'destroy'])->name('likes.destroy');
 
         Route::get('/parametres', function () {
             return view('home');

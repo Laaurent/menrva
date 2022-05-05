@@ -16,5 +16,6 @@ class Experience extends Model
         'end_date',
         'city',
         'city_department',
+        'resume'
     ];
 }

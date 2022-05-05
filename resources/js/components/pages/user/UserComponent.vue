@@ -1,6 +1,6 @@
 <template>
    <div class="user-container__content">
-      <AlertComponent v-if="error_code != 200" :code="error_code"></AlertComponent>
+      <AlertComponent v-if="error_code" :type="error_code == 200 ? 'success' : 'danger'" :status="error_code"></AlertComponent>
       <div v-if="error_code != 404">
          <UserHeaderComponent
             :id="user_tmp ? user_tmp.data.id : null"
@@ -11,6 +11,8 @@
             :user_loaded="user_loaded"
             :is_editable="is_user_logged"
             :is_logged="user_log ? true : false"
+            :is_liked_by_auth_user="user_tmp ? user_tmp.data.isLikedByAuthUser : false"
+            @update:like="updateLike($event)"
          ></UserHeaderComponent>
          <div class="user-cards-container">
             <div class="user-cards_row">
@@ -78,7 +80,7 @@ export default {
    data() {
       return {
          user_tmp: null,
-         error_code: 200,
+         error_code: null,
          user_loaded: true,
          user_suggestions: null,
          selected_experience: {
@@ -100,10 +102,25 @@ export default {
       async readUser() {
          try {
             this.user_tmp = await axios.get(`/user/${this.user_id}`);
-            this.error_code = this.user_tmp.data ? 200 : 404;
+            this.error_code = this.user_tmp.data ? this.error_code : 404;
             this.user_loaded = this.user_tmp.data ? false : true;
          } catch (error) {
             this.error_code = error.response.status;
+         }
+      },
+      async updateLike(event) {
+         try {
+            let result = null;
+            if (event) {
+               result = await axios.post(`/likes/`, { user_id: this.user_id });
+            } else {
+               result = await axios.post(`/likes/delete`, { user_id: this.user_id });
+            }
+            this.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.error_code = error.response.status;
+         } finally {
+            this.readUser();
          }
       },
    },

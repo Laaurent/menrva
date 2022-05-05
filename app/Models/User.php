@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -37,10 +38,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
         'two_factor_recovery_codes',
-        'two_factor_secret'
+        'two_factor_secret',
 
     ];
-
 
 
     /**
@@ -58,13 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<string, string>
      */
     protected $appends = [
-        'lastFormationDate'
+        'lastFormationDate',
+        'isLikedByAuthUser',
     ];
 
-    public function getlastFormationDateAttribute()
-    {
-        return count($this->lastFormation) > 0 ? $this->lastFormation[0]->end_date : null;
-    }
+
+
 
     public function formations()
     {
@@ -74,7 +73,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Experience::class)->latest();
     }
-
+    public function likes()
+    {
+        if (Auth::check()) {
+            return $this->hasMany(Like::class, 'user_liked_id')->where('user_id', Auth::id());
+        }
+    }
     public function lastExperience()
     {
         return $this->experiences()->latest()->take(1);
@@ -82,5 +86,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function lastFormation()
     {
         return $this->formations()->latest();
+    }
+    public function getisLikedByAuthUserAttribute()
+    {
+        return count($this->likes) > 0;
+    }
+
+    public function getlastFormationDateAttribute()
+    {
+        return count($this->lastFormation) > 0 ? $this->lastFormation[0]->end_date : null;
     }
 }

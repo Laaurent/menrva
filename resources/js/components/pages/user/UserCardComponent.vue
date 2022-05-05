@@ -70,6 +70,15 @@
                   </div>
                   <input required class="myinput" v-model="form.formation.city" type="text" placeholder="Lieu de la formation" />
                   <SelectDepartmentComponent @update:department="form.formation.city_department = $event"></SelectDepartmentComponent>
+                  <textarea
+                     class="myinput"
+                     name="resume"
+                     v-model="form.formation.resume"
+                     id=""
+                     cols="30"
+                     rows="5"
+                     placeholder="Résumé de votre expérience"
+                  ></textarea>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
                   </button>
@@ -111,6 +120,16 @@
                   </div>
                   <input required class="myinput" v-model="form.experience.city" type="text" placeholder="Lieu de l'expérience" />
                   <SelectDepartmentComponent @update:department="form.experience.city_department = $event"></SelectDepartmentComponent>
+                  <textarea
+                     class="myinput"
+                     name="resume"
+                     v-model="form.formation.resume"
+                     id=""
+                     cols="30"
+                     rows="5"
+                     placeholder="Résumé de votre expérience"
+                     
+                  ></textarea>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
                   </button>
@@ -165,6 +184,7 @@ export default {
                end_date: null,
                city: null,
                city_department: null,
+               resume: null,
             },
             experience: {
                name: null,
@@ -174,6 +194,7 @@ export default {
                city: null,
                city: null,
                city_department: null,
+               resume: null,
             },
          },
       };

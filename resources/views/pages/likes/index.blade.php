@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-<likes-component></likes-component>
+<likes-component :user_id="{{ Auth::id() }}"></likes-component>
 @endsection

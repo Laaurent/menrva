@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLikeRequest;
 use App\Http\Requests\UpdateLikeRequest;
 
@@ -13,9 +15,14 @@ class LikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $likes = Like::when($request->has('user_id'), function ($query) use ($request) {
+            return $query->where('user_id', $request->query('user_id'));
+        })->with('userLiked')
+            ->get();
+
+        return response()->json($likes);
     }
 
     /**
@@ -34,9 +41,16 @@ class LikeController extends Controller
      * @param  \App\Http\Requests\StoreLikeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLikeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $like = Like::create([
+            'user_id' => Auth::id(),
+            'user_liked_id' => $request->user_id,
+        ]);
+
+        if ($like)
+            return response()->json(['success' => 'Like ajouté avec succès']);
+        abort(500);
     }
 
     /**
@@ -68,9 +82,8 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLikeRequest $request, Like $like)
+    public function update(Request $request)
     {
-        //
     }
 
     /**
@@ -79,8 +92,15 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy(Request $request)
     {
-        //
+        $like = Like::where('user_id', Auth::id())
+            ->where('user_liked_id', $request->user_id)
+            ->delete();
+
+        if ($like)
+            return response()->json(['success' => 'Like a été supprimé avec succès']);
+        else
+            abort(500);
     }
 }
