@@ -29,6 +29,16 @@
                <IconComponent v-if="!liked" type="like" color="primary"></IconComponent>
                <IconComponent v-else type="liked" color="primary"></IconComponent>
             </button>
+            <form v-if="!editable" class="input-form">
+               <select
+                  v-model="playlist_tmp"
+                  class="myinput px-1 !rounded-full !w-10"
+                  @change="$emit('add:playlist', { user_id: user.id, playlist_id: playlist_tmp })"
+               >
+                  <option value="" disabled></option>
+                  <option v-for="(playlist, index) in playlists_list" :key="'playlist_' + index" :value="playlist.id">{{ playlist.name }}</option>
+               </select>
+            </form>
 
             <a :href="`/profil/${user.id}`" class="no-underline text-myblack bg-white rounded-full px-3 py-1 flex items-center gap-2">
                En savoir plus<IconComponent type="right" size="16"></IconComponent>
@@ -51,10 +61,20 @@ export default {
       user_log: {
          default: 0,
       },
+      like_view: {
+         default: false,
+      },
+      playlists_list: {
+         default: null,
+      },
+      editable: {
+         default: false,
+      },
    },
    data() {
       return {
          liked: this.user.isLikedByAuthUser,
+         playlist_tmp: "",
       };
    },
    components: { IconComponent },
@@ -66,5 +86,3 @@ export default {
    },
 };
 </script>
-
-<style></style>

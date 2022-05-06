@@ -54,12 +54,14 @@ Route::group(
         //LIKES
         Route::get('/likes', [LikeController::class, 'index'])->name('likes');
         Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+        Route::put('/likes', [LikeController::class, 'update'])->name('likes.update');
         Route::post('/likes/delete', [LikeController::class, 'destroy'])->name('likes.destroy');
 
         //PLAYLISTS
         Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists');
         Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
         Route::delete('/playlists/{id}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
+        Route::put('/playlists/{id}', [PlaylistController::class, 'update'])->name('playlists.update');
 
         Route::get('/parametres', function () {
             return view('home');

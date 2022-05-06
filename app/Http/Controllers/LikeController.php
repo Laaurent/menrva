@@ -19,7 +19,11 @@ class LikeController extends Controller
     {
         $likes = Like::when($request->has('user_id'), function ($query) use ($request) {
             return $query->where('user_id', $request->query('user_id'));
-        })->with('userLiked')
+        })
+            ->when($request->has('pending'), function ($query) use ($request) {
+                return $query->where('playlist_id', null);
+            })
+            ->with('userLiked')
             ->get();
 
         return response()->json($likes);
@@ -84,6 +88,11 @@ class LikeController extends Controller
      */
     public function update(Request $request)
     {
+        $like = Like::where('user_liked_id', $request->user_id)->where('user_id', Auth::id())->update([
+            'playlist_id' => $request->playlist_id,
+        ]);
+
+        return response()->json(['success' => 'Playlist ajouté avec succès']);
     }
 
     /**

@@ -11,14 +11,21 @@
          </button>
       </article>
       <!-- en attente -->
-      <PlaylistComponent :data="pending.data" :editable="false"></PlaylistComponent>
+      <PlaylistComponent
+         :data="pending.data"
+         :editable="false"
+         :playlists_list="playlists.data"
+         @add:playlist="addPlaylist($event.user_id, $event.playlist_id)"
+      ></PlaylistComponent>
       <!-- Mes playlists -->
       <PlaylistComponent
          v-for="(playlist, index) in playlists.data"
          :id="playlist.id"
          :data="playlist.likes"
          :key="'myplaylist_' + index"
+         :name="playlist.name"
          @destroy:playlist="deletePlaylist($event)"
+         @update:playlist="renamePlaylist($event.id, $event.name)"
       ></PlaylistComponent>
    </section>
 </template>
@@ -59,7 +66,7 @@ export default {
       async getLikes() {
          this.pending.loading = true;
          try {
-            const result = await axios.get(`/likes?user_id=${this.user_id}`);
+            const result = await axios.get(`/likes?user_id=${this.user_id}&pending=true`);
             this.pending.data = result.data;
             this.pending.error_code = result.data ? 200 : 500;
          } catch (error) {
@@ -101,6 +108,31 @@ export default {
             this.playlists.error_code = error.response.status;
          } finally {
             this.playlists.loading = false;
+            this.getPlaylists();
+         }
+      },
+      async renamePlaylist(id, name) {
+         this.playlists.loading = true;
+         try {
+            const result = await axios.put(`/playlists/${id}`, { name: name });
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+            this.getPlaylists();
+         }
+      },
+      async addPlaylist(user_id, playlist_id) {
+         this.playlists.loading = true;
+         try {
+            const result = await axios.put(`/likes`, { user_id: user_id, playlist_id: playlist_id });
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+            this.getLikes();
             this.getPlaylists();
          }
       },

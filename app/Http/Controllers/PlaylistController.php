@@ -19,7 +19,8 @@ class PlaylistController extends Controller
     {
         $playlists = Playlist::when($request->has('user_id'), function ($query) use ($request) {
             return $query->where('user_id', $request->query('user_id'));
-        })->with('likes')->get();
+        })
+            ->with('likes.userLiked')->get();
 
         return response()->json($playlists);
     }
@@ -78,9 +79,13 @@ class PlaylistController extends Controller
      * @param  \App\Models\Playlist  $playlist
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePlaylistRequest $request, Playlist $playlist)
+    public function update(Request $request, $id)
     {
-        //
+        $playlist = Playlist::where('id', $id)->update([
+            'name' => $request->name,
+        ]);
+
+        return response()->json($playlist);
     }
 
     /**
@@ -92,6 +97,10 @@ class PlaylistController extends Controller
     public function destroy($id)
     {
         $playlist = Playlist::findOrFail($id);
+        /* dd($playlist->likes);
+        if ($playlist->likes()->count() > 0)
+            return response()->json(['success' => 'Playlist supprimé avec succès']); */
+
         $playlist->delete();
 
         return response()->json($playlist);
