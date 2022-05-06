@@ -2,15 +2,15 @@
 
 Personal project done to validate my master 2. 🏫 This Laravel VueJS project is accessible on both web and mobile, with the aim of connecting notaries 👩🏼‍⚖️ and future aspirants to the profession.
 
-## Status 🟢
+### Status 🟢
 
 The project is currently deployed as V1️. Users are able to log in, edit their information, search and interact with each other through a like and playlist system.
 
-## Project Screen Shot(s) 📸
+### Project Screen Shot(s) 📸
 
 WIP
 
-## Installation 🤖
+### Installation 🤖
 
 Clone down this repository. 
 
@@ -54,7 +54,7 @@ To Visit App:
 localhost:8000
 ```
 
-## Reflection 💡
+### Reflection 💡
 
 Being surrounded by people in the notary's profession on a daily basis, I am therefore directly exposed to their expectations and needs with regard to technology. At first I could understand that it was rather difficult for them to cohabit with technology because of the age of the profession and the codes it includes, you will not see any notary converting to 100% digital overnight as the constraints involved are enormous (e.g. digitalising archives dating back over a century).
 
