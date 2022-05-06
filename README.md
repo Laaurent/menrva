@@ -1,46 +1,60 @@
-## Menrva 🦉
+# Menrva 🦉
 
 Personal project done to validate my master 2. 🏫 This Laravel VueJS project is accessible on both web and mobile, with the aim of connecting notaries 👩🏼‍⚖️ and future aspirants to the profession.
 
-## Project Status
+## Status 🟢
 
-The project is currently deployed as V1. Users are able to log in, edit their information, search and interact with each other through a like and playlist system.
+The project is currently deployed as V1️. Users are able to log in, edit their information, search and interact with each other through a like and playlist system.
 
-## Project Screen Shot(s)
+## Project Screen Shot(s) 📸
 
 WIP
 
-## Installation and Setup Instructions
+## Installation 🤖
 
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+Clone down this repository. 
 
 Installation:
 
-`composer install`  
+```bash
+composer install
+```
 
-Copy .env.example file to .env on the root folder, change the database name (DB_DATABASE) to whatever you have, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
+Configure .env:  
+
+>Copy .env.example file to .env on the root folder, change the database name (DB_DATABASE) to whatever you have, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
 
 Generate a key:  
 
-`php artisan key:generate`  
+```bash
+php artisan key:generate
+```
 
 Load database table and seeds:
 
-`php artisan migrate:fresh --seed`  
+```bash
+php artisan migrate:fresh --seed
+```
 
 Run server:
 
-`php artisan serve` 
+```bash
+php artisan serve
+```
 
 Compile front part
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 To Visit App:
 
-`localhost:8000` 
+```bash
+localhost:8000
+```
 
-## Reflection
+## Reflection 💡
 
 Being surrounded by people in the notary's profession on a daily basis, I am therefore directly exposed to their expectations and needs with regard to technology. At first I could understand that it was rather difficult for them to cohabit with technology because of the age of the profession and the codes it includes, you will not see any notary converting to 100% digital overnight as the constraints involved are enormous (e.g. digitalising archives dating back over a century).
 
