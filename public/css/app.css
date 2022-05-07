@@ -1100,6 +1100,12 @@ input[type="range"]::-ms-fill-lower{
 .pr-2{
   padding-right: 0.5rem;
 }
+.pr-8{
+  padding-right: 2rem;
+}
+.pr-6{
+  padding-right: 1.5rem;
+}
 .text-left{
   text-align: left;
 }

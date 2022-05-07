@@ -58,14 +58,14 @@
     <div class="nav-container_item">
         <ul class="nav-container_part">
             @if (Auth::check())
-            <li class="nav-link-item @if (request()->routeIs('settings')) isactive @endif">
+            {{-- <li class="nav-link-item @if (request()->routeIs('settings')) isactive @endif">
                 <div class="nav-link-item_content">
                     <x-coolicon-settings /><a href="{{ route('settings') }}">
                         Paramètres
                     </a>
                 </div>
                 <div class="nav-link-item_point"></div>
-            </li>
+            </li> --}}
             @endif
         </ul>
     </div>

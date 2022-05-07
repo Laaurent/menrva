@@ -7,7 +7,7 @@
                v-model="place"
                type="search"
                name="p"
-               class="border-0 xl:w-36 w-full py-2 text-sm pr-10 focus:outline-none focus:text-gray-900 bg-mygrey2 rounded-md"
+               class="border-0 xl:w-36 w-full py-2 text-sm pr-6 focus:outline-none focus:text-gray-900 bg-mygrey2 rounded-md"
                placeholder="Localisation..."
                autocomplete="off"
             />
@@ -18,7 +18,7 @@
                v-model="keywords"
                type="search"
                name="q"
-               class="border-0 xl:w-96 w-full py-2 text-sm pr-10 focus:outline-none focus:text-gray-900 bg-mygrey2 rounded-md"
+               class="border-0 xl:w-96 w-full py-2 text-sm pr-6 focus:outline-none focus:text-gray-900 bg-mygrey2 rounded-md"
                placeholder="Mots clés..."
                autocomplete="off"
             />
