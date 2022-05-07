@@ -1,6 +1,7 @@
 <template>
    <section class="flex flex-col gap-6">
       <article class="flex flex-col items-center mt-4 lg:bg-mywhite rounded-lg py-6">
+         <img class="my-4" src="/img/svg/favicon.svg" alt="Logo of menrva" width="36" />
          <h2 class="mb-4 text-center">Des étudiants qualifiés pour le futur du notorariat</h2>
          <div class="">
             <SearchbarComponent :search_button="true" @submitForm="searchUsers($event)"></SearchbarComponent>

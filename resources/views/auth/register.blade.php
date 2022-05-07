@@ -8,6 +8,8 @@
     </div>
     <div class="main-block">
         <div class="log-container">
+            <a href="{{ route('home') }}"><img class="my-4" src="{{ asset('/img/svg/favicon.svg') }}"
+                    alt="Logo of menrva" width="40"></a>
 
             <h1>Bienvenue 👋</h1> <i class="ci-iconName"></i>
             <h3>Content de vous compter parmi nous !</h3>

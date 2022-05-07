@@ -648,6 +648,10 @@ input[type="range"]::-ms-fill-lower{
 .z-0{
   z-index: 0;
 }
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -655,10 +659,6 @@ input[type="range"]::-ms-fill-lower{
 .my-0{
   margin-top: 0px;
   margin-bottom: 0px;
-}
-.my-4{
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 .my-2{
   margin-top: 0.5rem;
@@ -715,14 +715,11 @@ input[type="range"]::-ms-fill-lower{
 .mb-4{
   margin-bottom: 1rem;
 }
-.mt-6{
-  margin-top: 1.5rem;
-}
-.-mt-10{
-  margin-top: -2.5rem;
-}
 .-mt-4{
   margin-top: -1rem;
+}
+.mt-6{
+  margin-top: 1.5rem;
 }
 .block{
   display: block;
@@ -781,12 +778,6 @@ input[type="range"]::-ms-fill-lower{
 .h-6{
   height: 1.5rem;
 }
-.h-32{
-  height: 8rem;
-}
-.h-24{
-  height: 6rem;
-}
 .h-20{
   height: 5rem;
 }
@@ -834,12 +825,6 @@ input[type="range"]::-ms-fill-lower{
 }
 .w-6{
   width: 1.5rem;
-}
-.w-32{
-  width: 8rem;
-}
-.w-24{
-  width: 6rem;
 }
 .w-20{
   width: 5rem;
@@ -1094,17 +1079,11 @@ input[type="range"]::-ms-fill-lower{
 .pt-4{
   padding-top: 1rem;
 }
-.pr-10{
-  padding-right: 2.5rem;
+.pr-6{
+  padding-right: 1.5rem;
 }
 .pr-2{
   padding-right: 0.5rem;
-}
-.pr-8{
-  padding-right: 2rem;
-}
-.pr-6{
-  padding-right: 1.5rem;
 }
 .text-left{
   text-align: left;
@@ -1127,10 +1106,6 @@ input[type="range"]::-ms-fill-lower{
 .text-xl{
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-.text-2xl{
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 .font-semibold{
   font-weight: 600;
@@ -1215,10 +1190,6 @@ input[type="range"]::-ms-fill-lower{
 .text-myprimary{
   --tw-text-opacity: 1;
   color: rgb(40 107 238 / var(--tw-text-opacity));
-}
-.text-white{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .underline{
   -webkit-text-decoration-line: underline;
@@ -12637,7 +12608,7 @@ main {
 }
 
 .container-auth {
-  height: 100vh;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -12645,10 +12616,11 @@ main {
 .container-auth div.side-block {
   flex: 1;
   background-color: #286bee;
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 .container-auth div.main-block {
+  padding: 16px 0;
   flex: 2;
   height: auto;
 }
@@ -12672,7 +12644,7 @@ main {
 @media only screen and (max-width: 1024px) {
   /* For mobile phones: */
   .container-auth {
-    height: 90vh;
+    min-height: 90vh;
     flex-direction: column;
   }
   .container-auth div.side-block {
@@ -12897,7 +12869,7 @@ main {
   }
 }
 .main-block {
-  padding: 32px;
+  padding: 16px;
 }
 
 .input-form {
@@ -13107,17 +13079,11 @@ main {
   .xl\:mt-0{
     margin-top: 0px;
   }
-  .xl\:-mt-10{
-    margin-top: -2.5rem;
-  }
   .xl\:block{
     display: block;
   }
   .xl\:min-h-\[360px\]{
     min-height: 360px;
-  }
-  .xl\:min-h-\[300px\]{
-    min-height: 300px;
   }
   .xl\:w-1\/2{
     width: 50%;
@@ -13142,17 +13108,5 @@ main {
   }
   .xl\:pt-0{
     padding-top: 0px;
-  }
-  .xl\:text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  .xl\:text-4xl{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-  .xl\:text-3xl{
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }

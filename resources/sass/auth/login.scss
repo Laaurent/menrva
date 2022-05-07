@@ -2,7 +2,7 @@ main{
     padding: 0 0px;
 }
 .container-auth{
-    height: 100vh;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -10,10 +10,11 @@ main{
         &.side-block{
             flex: 1;
             background-color: $myprimary;
-            height: 100%;
+            height: 100vh;
             width: 100%;
         }
         &.main-block{
+          padding: 16px 0;
             flex: 2;
             height: auto;
         }
@@ -38,7 +39,7 @@ main{
 @media only screen and (max-width: 1024px) {
   /* For mobile phones: */
     .container-auth{
-        height: 90vh;
+        min-height: 90vh;
         flex-direction: column;
         div{
            
