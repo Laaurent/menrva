@@ -21,7 +21,7 @@ use App\Http\Controllers\PlaylistController;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/rechercher', 'home')->name('search');
-Route::view('/mes-listes', 'pages.likes.index')->name('my-list')->middleware('is_professionnal');
+
 
 // A DELETE
 
@@ -35,7 +35,7 @@ Route::get('/users/lastformation', [UserController::class, 'lastFormation'])->na
 Route::group(
     ['middleware' => 'auth'],
     function () {
-
+        Route::view('/mes-listes', 'pages.likes.index')->name('my-list')->middleware('is_professionnal');
 
         //USER
 
