@@ -25,10 +25,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Quenel',
-            'first_name' => 'Laurent',
+            'name' => 'Henry',
+            'first_name' => 'Latour',
+            'user_type_id' => 1,
+            'email' => 'email@student.fr',
+            'password' => Hash::make('Test1234'),
+        ]);
+        User::create([
+            'name' => 'Jean',
+            'first_name' => 'Hagrah',
             'user_type_id' => 2,
-            'email' => 'laurent-quenel@hotmail.fr',
+            'email' => 'email@pro.fr',
             'password' => Hash::make('Test1234'),
         ]);
 

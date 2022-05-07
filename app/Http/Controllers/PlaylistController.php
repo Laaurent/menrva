@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,10 +98,13 @@ class PlaylistController extends Controller
     public function destroy($id)
     {
         $playlist = Playlist::findOrFail($id);
-        /* dd($playlist->likes);
-        if ($playlist->likes()->count() > 0)
-            return response()->json(['success' => 'Playlist supprimé avec succès']); */
 
+        if ($playlist->likes()->count() > 0)
+            foreach ($playlist->likes as $like) {
+                Like::where('id', $like->id)->update([
+                    'playlist_id' => null,
+                ]);
+            }
         $playlist->delete();
 
         return response()->json($playlist);

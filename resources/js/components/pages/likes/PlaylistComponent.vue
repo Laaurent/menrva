@@ -40,8 +40,10 @@
                :user="like.user_liked"
                :width="true"
                :playlists_list="playlists_list"
-               :editable="editable"
+               :editable="!editable"
+               :user_log="1"
                @add:playlist="$emit('add:playlist', $event)"
+               @update:like="$emit('update:like', $event)"
             ></HomeUserCardComponent>
          </div>
       </div>

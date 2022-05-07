@@ -46,7 +46,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        if ($user) {
+        if ($user && !Storage::disk('public')->exists("/avatars/$user/avatar.png") && !Storage::disk('public')->exists("/avatars/$user/background.png")) {
             Storage::disk('public')->copy('/avatars/avatar.png', "/avatars/$user/avatar.png");
             Storage::disk('public')->copy('/avatars/background.png', "/avatars/$user/background.png");
         }

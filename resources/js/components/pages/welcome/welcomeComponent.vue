@@ -9,7 +9,7 @@
             <p class="text-center text-sm lg:px-36">
                Avec <b>Menrva</b>, que vous soyez étudiant dans le domaine juridique ou un professionnel à la recherche de la pépite, vous trouverez ce que vous
                cherchez. Rencontrez la personne parfaite répondant à vos besoins les plus techniques. Vous êtes étudiant ?
-               <a href="/register">inscrivez-vous</a> sur la plateforme directement.
+               <a href="/register">Inscrivez-vous</a> sur la plateforme directement.
             </p>
          </div>
       </article>
@@ -26,6 +26,7 @@
                :user="user"
                :width="true"
                :user_log="user_log"
+               :is_student="is_student"
                @update:like="updateLike($event)"
             ></HomeUserCardComponent>
          </div>
@@ -41,6 +42,9 @@ export default {
    components: { SearchbarComponent, HomeUserCardComponent, SpinnerComponent },
    props: {
       user_log: {
+         required: true,
+      },
+      is_student: {
          required: true,
       },
    },

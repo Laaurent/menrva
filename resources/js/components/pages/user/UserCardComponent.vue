@@ -123,12 +123,11 @@
                   <textarea
                      class="myinput"
                      name="resume"
-                     v-model="form.formation.resume"
+                     v-model="form.experience.resume"
                      id=""
                      cols="30"
                      rows="5"
                      placeholder="Résumé de votre expérience"
-                     
                   ></textarea>
                   <button class="btn btn-primary">
                      <span class="flex justify-center"><IconComponent type="plus_add" color="white"></IconComponent>Ajouter </span>
@@ -229,7 +228,7 @@ export default {
          try {
             let result = null;
             if (type == "resume") {
-               result = await axios.post(`/user/${this.id}/update/`, { form: form });
+               result = await axios.post(`/user/${this.id}/update/`, form);
                this.edit = false;
             }
             if (type == "formation") {
@@ -245,7 +244,7 @@ export default {
                const experience_tmp = { ...this.form.experience };
                console.log(experience_tmp);
                this.experiences_data.push(experience_tmp);
-               this.resetFormation();
+               this.resetExperience();
             }
             this.loading = false;
          } catch (error) {
@@ -274,6 +273,7 @@ export default {
          this.form.formation.start_date = null;
          this.form.formation.end_date = null;
          this.form.formation.city = null;
+         this.form.formation.resume = null;
          this.form.formation.city_department = null;
       },
       resetExperience() {
@@ -281,6 +281,7 @@ export default {
          this.form.experience.start_date = null;
          this.form.experience.end_date = null;
          this.form.experience.city = null;
+         this.form.experience.resume = null;
          this.form.experience.city_department = null;
       },
    },

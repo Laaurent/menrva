@@ -11,6 +11,7 @@
             :user_loaded="user_loaded"
             :is_editable="is_user_logged"
             :is_logged="user_log ? true : false"
+            :is_student="is_student"
             :is_liked_by_auth_user="user_tmp ? user_tmp.data.isLikedByAuthUser : false"
             @update:like="updateLike($event)"
          ></UserHeaderComponent>
@@ -37,12 +38,12 @@
                ></UserCardComponent>
             </div>
             <div class="user-cards_row">
-               <UserCardComponent
+               <!--  <UserCardComponent
                   type="other"
                   :id="user_tmp ? user_tmp.data.id : null"
                   :user_loaded="user_loaded"
                   :is_editable="is_user_logged"
-               ></UserCardComponent>
+               ></UserCardComponent> -->
                <UserCardComponent
                   :experiences="user_tmp ? user_tmp.data.experiences : null"
                   type="experience"
@@ -76,7 +77,7 @@ import { mapActions, mapState } from "pinia";
 import ModaleUserInformation from "../../components/ModaleUserInformation.vue";
 export default {
    components: { UserHeaderComponent, AlertComponent, ModaleUserInformation },
-   props: ["user_id", "user_log"],
+   props: ["user_id", "user_log", "is_student"],
    data() {
       return {
          user_tmp: null,

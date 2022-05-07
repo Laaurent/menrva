@@ -1,5 +1,5 @@
 <template>
-   <section :style="width ? 'min-width: 350px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
+   <section :style="width ? 'min-width: 300px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
       <article class="flex items-center gap-3 h-16">
          <img class="w-16 h-16 rounded-full object-cover" :src="`/img/avatars/${user.id}/avatar.png`" alt="user image" />
          <div>
@@ -19,7 +19,7 @@
          </p>
          <div class="flex justify-end items-center gap-2">
             <button
-               v-if="user_log"
+               v-if="user_log && !is_student"
                class="btn p-0"
                @click="
                   liked = !liked;
@@ -29,14 +29,16 @@
                <IconComponent v-if="!liked" type="like" color="primary"></IconComponent>
                <IconComponent v-else type="liked" color="primary"></IconComponent>
             </button>
-            <form v-if="!editable" class="input-form">
+            <form v-if="editable" class="input-form">
                <select
                   v-model="playlist_tmp"
                   class="myinput px-1 !rounded-full !w-10"
                   @change="$emit('add:playlist', { user_id: user.id, playlist_id: playlist_tmp })"
                >
                   <option value="" disabled></option>
-                  <option v-for="(playlist, index) in playlists_list" :key="'playlist_' + index" :value="playlist.id">{{ playlist.name }}</option>
+                  <option v-for="(playlist, index) in playlists_list" :key="'playlist_' + index" :value="playlist.id">
+                     {{ playlist.name ? playlist.name : "Playlist " + playlist.id }}
+                  </option>
                </select>
             </form>
 
@@ -70,12 +72,20 @@ export default {
       editable: {
          default: false,
       },
+      is_student: {
+         default: false,
+      },
    },
    data() {
       return {
          liked: this.user.isLikedByAuthUser,
          playlist_tmp: "",
       };
+   },
+   watch: {
+      "user.isLikedByAuthUser": function () {
+         this.liked = this.user.isLikedByAuthUser;
+      },
    },
    components: { IconComponent },
    computed: {

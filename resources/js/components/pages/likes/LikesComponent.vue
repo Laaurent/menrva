@@ -16,6 +16,7 @@
          :editable="false"
          :playlists_list="playlists.data"
          @add:playlist="addPlaylist($event.user_id, $event.playlist_id)"
+         @update:like="updateLike($event)"
       ></PlaylistComponent>
       <!-- Mes playlists -->
       <PlaylistComponent
@@ -26,6 +27,7 @@
          :name="playlist.name"
          @destroy:playlist="deletePlaylist($event)"
          @update:playlist="renamePlaylist($event.id, $event.name)"
+         @update:like="updateLike($event)"
       ></PlaylistComponent>
    </section>
 </template>
@@ -108,6 +110,7 @@ export default {
             this.playlists.error_code = error.response.status;
          } finally {
             this.playlists.loading = false;
+            this.getLikes();
             this.getPlaylists();
          }
       },
@@ -127,6 +130,24 @@ export default {
          this.playlists.loading = true;
          try {
             const result = await axios.put(`/likes`, { user_id: user_id, playlist_id: playlist_id });
+            this.playlists.error_code = result.data ? 200 : 500;
+         } catch (error) {
+            this.playlists.error_code = error.response.status;
+         } finally {
+            this.playlists.loading = false;
+            this.getLikes();
+            this.getPlaylists();
+         }
+      },
+      async updateLike(event) {
+         this.playlists.loading = true;
+         try {
+            let result = null;
+            if (event.liked) {
+               result = await axios.post(`/likes/`, { user_id: event.user_id });
+            } else {
+               result = await axios.post(`/likes/delete`, { user_id: event.user_id });
+            }
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
             this.playlists.error_code = error.response.status;

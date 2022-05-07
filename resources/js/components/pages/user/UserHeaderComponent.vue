@@ -25,8 +25,8 @@
             <input type="file" @change="onFileChange($event, 'bg')" class="hidden" />
          </label>
       </div>
-      <div class="user-header-container__infos z-20" :class="edit ? 'mt-2 gap-4' : ''">
-         <div v-if="!edit" class="user-header-container__infos_img lg:h-32 lg:w-32 h-16 w-16 overflow-hidden">
+      <div class="user-header-container__infos z-20 -mt-4 lg:-mt-10" :class="edit ? 'mt-2 gap-4' : ''">
+         <div v-if="!edit" class="user-header-container__infos_img lg:h-32 lg:w-32 h-20 w-20 overflow-hidden">
             <img
                v-if="id"
                class="w-full h-full rounded-full object-cover"
@@ -38,11 +38,11 @@
             <div class="flex items-center justify-center w-full relative overflow-hidden">
                <img
                   v-if="id"
-                  class="absolute lg:h-32 lg:w-32 h-16 w-16 rounded-full object-cover"
+                  class="absolute lg:h-32 lg:w-32 h-20 w-20 rounded-full object-cover"
                   :src="form.profil_image ? form.profil_image : `/img/avatars/${id}/avatar.png`"
                />
                <label
-                  class="flex z-10 flex-col border-4 border-dashed lg:h-32 lg:w-32 h-16 w-16 hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-full"
+                  class="flex z-10 flex-col border-4 border-dashed lg:h-32 lg:w-32 h-20 w-20 hover:bg-mygrey3/70 bg-white/70 hover:border-myprimary group rounded-full"
                >
                   <div class="flex flex-col items-center justify-center w-100 h-100">
                      <svg
@@ -88,11 +88,11 @@
                         </button>
                      </form>
                      <div v-else class="flex flex-col md:flex-row items-start lg:justify-between lg:items-center">
-                        <div class="flex flex-col items-start">
-                           <h1 class="text-lg">{{ fullname }}</h1>
+                        <div class="flex flex-col items-start mt-4 xl:mt-0">
+                           <h1 class="lg:text-3xl text-xl text-myprimary">{{ fullname }}</h1>
                            <div class="flex items-center">
                               <IconComponent type="place" size="12" color="grey"></IconComponent>
-                              <h6 :style="!city ? 'font-style: italic' : ''" class="leading-none">
+                              <h6 :style="!city ? 'font-style: italic' : ''" class="leading-none text-sm">
                                  {{ form.city ? form.city + " (" + form.city_department + ")" : "non renseigné" }}
                               </h6>
                            </div>
@@ -102,15 +102,16 @@
                </div>
             </div>
             <div v-if="is_logged && !edit" class="infos__main_button flex justify-start">
-               <button class="btn p-0"><IconComponent type="comment" size="20"></IconComponent></button>
+               <!--  <button class="btn p-0"><IconComponent type="comment" size="20"></IconComponent></button> -->
                <button
+                  v-if="!is_student"
                   class="btn p-0"
                   @click="
                      $emit('update:like', !liked);
                      liked = !liked;
                   "
                >
-                  <IconComponent :type="liked ? 'liked' : 'like'" size="20"></IconComponent>
+                  <IconComponent :type="liked ? 'liked' : 'like'" size="20" color="primary"></IconComponent>
                </button>
                <div v-if="is_editable" class="flex items-center">
                   <EditButtonComponent size="20" :loading="loading" @update:click="edit = !edit" @update:user="updateUserProfil(form)"></EditButtonComponent>
@@ -128,7 +129,7 @@ import EditButtonComponent from "../../components/EditButtonComponent.vue";
 import IconComponent from "../../components/svg/IconComponent.vue";
 export default {
    components: { IconComponent, EditButtonComponent, VueSkeletonLoader, SelectDepartmentComponent },
-   props: ["id", "is_logged", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable", "is_liked_by_auth_user"],
+   props: ["id", "is_logged", "first_name", "last_name", "user_loaded", "city", "city_department", "is_editable", "is_liked_by_auth_user", "is_student"],
    data() {
       return {
          is_user_logged: true,
@@ -229,7 +230,7 @@ $mydarkgrey: #7a868c;
       display: flex;
       gap: 40px;
       padding: 0 32px;
-      margin-top: -20px;
+
       align-items: center;
       /* position: absolute; */
       top: 250px;

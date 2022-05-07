@@ -32,6 +32,7 @@
                :key="'userCard_' + index"
                :user="user"
                :user_log="user_log"
+               :is_student="is_student"
                @update:like="updateLike($event)"
             ></HomeUserCardComponent>
          </div>
@@ -58,6 +59,9 @@ export default {
          required: true,
       },
       user_log: {
+         required: true,
+      },
+      is_student: {
          required: true,
       },
    },

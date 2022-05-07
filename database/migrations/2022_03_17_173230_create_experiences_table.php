@@ -17,7 +17,7 @@ class CreateExperiencesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->text('resume');
+            $table->text('resume')->nullable();
             $table->string('city');
             $table->string('city_department');
             $table->date('start_date');
