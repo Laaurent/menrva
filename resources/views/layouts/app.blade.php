@@ -17,6 +17,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ asset('/img/svg/favicon.svg') }}" type="image/x-icon">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -30,7 +32,7 @@
                 </div>
                 <div class="main-block w-full xl:w-1/2">
                     @include('layouts.header')
-                    
+
                     @yield('content')
                 </div>
         </main>
