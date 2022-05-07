@@ -38,7 +38,7 @@ export default {
    methods: {
       async getSuggestion() {
          try {
-            let result = await axios.get(`/users/suggestions/${this.user_id}`);
+            let result = await axios.get(`https://menrva-jgpnn.ondigitalocean.app/users/suggestions/${this.user_id}`);
             this.user_suggestions = result.data.data;
             this.error_code = 200;
             this.user_loaded = false;

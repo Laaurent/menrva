@@ -68,7 +68,7 @@ export default {
       async getLikes() {
          this.pending.loading = true;
          try {
-            const result = await axios.get(`/likes?user_id=${this.user_id}&pending=true`);
+            const result = await axios.get(`https://menrva-jgpnn.ondigitalocean.app/likes?user_id=${this.user_id}&pending=true`);
             this.pending.data = result.data;
             this.pending.error_code = result.data ? 200 : 500;
          } catch (error) {
@@ -80,7 +80,7 @@ export default {
       async getPlaylists() {
          this.playlists.loading = true;
          try {
-            const result = await axios.get(`/playlists?user_id=${this.user_id}`);
+            const result = await axios.get(`https://menrva-jgpnn.ondigitalocean.app/playlists?user_id=${this.user_id}`);
             this.playlists.data = result.data;
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
@@ -92,7 +92,7 @@ export default {
       async createPlaylist() {
          this.playlists.loading = true;
          try {
-            const result = await axios.post(`/playlists`);
+            const result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/playlists`);
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
             this.playlists.error_code = error.response.status;
@@ -104,7 +104,7 @@ export default {
       async deletePlaylist(id) {
          this.playlists.loading = true;
          try {
-            const result = await axios.delete(`/playlists/${id}`);
+            const result = await axios.delete(`https://menrva-jgpnn.ondigitalocean.app/playlists/${id}`);
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
             this.playlists.error_code = error.response.status;
@@ -117,7 +117,7 @@ export default {
       async renamePlaylist(id, name) {
          this.playlists.loading = true;
          try {
-            const result = await axios.put(`/playlists/${id}`, { name: name });
+            const result = await axios.put(`https://menrva-jgpnn.ondigitalocean.app/playlists/${id}`, { name: name });
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
             this.playlists.error_code = error.response.status;
@@ -129,7 +129,7 @@ export default {
       async addPlaylist(user_id, playlist_id) {
          this.playlists.loading = true;
          try {
-            const result = await axios.put(`/likes`, { user_id: user_id, playlist_id: playlist_id });
+            const result = await axios.put(`https://menrva-jgpnn.ondigitalocean.app/likes`, { user_id: user_id, playlist_id: playlist_id });
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {
             this.playlists.error_code = error.response.status;
@@ -144,9 +144,9 @@ export default {
          try {
             let result = null;
             if (event.liked) {
-               result = await axios.post(`/likes`, { user_id: event.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes`, { user_id: event.user_id });
             } else {
-               result = await axios.post(`/likes/delete`, { user_id: event.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes/delete`, { user_id: event.user_id });
             }
             this.playlists.error_code = result.data ? 200 : 500;
          } catch (error) {

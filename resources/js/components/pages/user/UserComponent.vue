@@ -102,7 +102,7 @@ export default {
    methods: {
       async readUser() {
          try {
-            this.user_tmp = await axios.get(`/user/${this.user_id}`);
+            this.user_tmp = await axios.get(`https://menrva-jgpnn.ondigitalocean.app/user/${this.user_id}`);
             this.error_code = this.user_tmp.data ? this.error_code : 404;
             this.user_loaded = this.user_tmp.data ? false : true;
          } catch (error) {
@@ -113,9 +113,9 @@ export default {
          try {
             let result = null;
             if (event) {
-               result = await axios.post(`/likes`, { user_id: this.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes`, { user_id: this.user_id });
             } else {
-               result = await axios.post(`/likes/delete`, { user_id: this.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes/delete`, { user_id: this.user_id });
             }
             this.error_code = result.data ? 200 : 500;
          } catch (error) {

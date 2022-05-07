@@ -228,17 +228,17 @@ export default {
          try {
             let result = null;
             if (type == "resume") {
-               result = await axios.post(`/user/${this.id}/update`, form);
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/user/${this.id}/update`, form);
                this.edit = false;
             }
             if (type == "formation") {
-               result = await axios.post(`/formation/store`, this.form.formation);
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/formation/store`, this.form.formation);
                const formation_tmp = { ...this.form.formation };
                this.formations_data.push(formation_tmp);
                this.resetFormation();
             }
             if (type == "experience") {
-               result = await axios.post(`/experience/store`, this.form.experience);
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/experience/store`, this.form.experience);
                const experience_tmp = { ...this.form.experience };
                this.experiences_data.push(experience_tmp);
                this.resetExperience();
@@ -253,11 +253,11 @@ export default {
          let result = null;
          try {
             if (type == "experience") {
-               result = await axios.post(`/experience/delete`, { id: id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/experience/delete`, { id: id });
                this.experiences_data = this.experiences_data.splice(index, 1);
             }
             if (type == "formation") {
-               result = await axios.post(`/formation/delete`, { id: id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/formation/delete`, { id: id });
                this.formations_data = this.formations_data.splice(index, 1);
             }
             this.loading = false;

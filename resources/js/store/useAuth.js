@@ -11,7 +11,7 @@ export const useAuth = defineStore("auth", {
    actions: {
       async userLog() {
          try {
-            const user_log = await axios.get("/user/auth");
+            const user_log = await axios.get("https://menrva-jgpnn.ondigitalocean.app/user/auth");
             this.user_log = user_log;
             return true;
          } catch (error) {

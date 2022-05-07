@@ -70,7 +70,7 @@ export default {
          this.users.loading = true;
          let result = null;
          try {
-            result = await axios.get(`/users/lastformation`);
+            result = await axios.get(`https://menrva-jgpnn.ondigitalocean.app/users/lastformation`);
             this.users.data = result.data;
          } catch (error) {
             result = error.response;
@@ -88,9 +88,9 @@ export default {
          try {
             let result = null;
             if (event.liked) {
-               result = await axios.post(`/likes`, { user_id: event.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes`, { user_id: event.user_id });
             } else {
-               result = await axios.post(`/likes/delete`, { user_id: event.user_id });
+               result = await axios.post(`https://menrva-jgpnn.ondigitalocean.app/likes/delete`, { user_id: event.user_id });
             }
             this.users.status = result.data ? 200 : 500;
          } catch (error) {
