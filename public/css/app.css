@@ -13110,6 +13110,9 @@ main {
   .xl\:min-h-\[360px\]{
     min-height: 360px;
   }
+  .xl\:min-h-\[300px\]{
+    min-height: 300px;
+  }
   .xl\:w-1\/2{
     width: 50%;
   }

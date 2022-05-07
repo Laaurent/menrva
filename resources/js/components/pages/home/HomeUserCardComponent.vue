@@ -1,5 +1,5 @@
 <template>
-   <section :style="width ? 'min-width: 300px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
+   <section :style="width ? 'min-width: 310px' : ''" class="bg-mygrey2 rounded-lg px-6 py-4 xl:w-96 h-72 flex flex-col justify-center">
       <article class="flex items-center gap-3 h-16">
          <img class="w-16 h-16 rounded-full object-cover" :src="`/img/avatars/${user.id}/avatar.png`" alt="user image" />
          <div>
