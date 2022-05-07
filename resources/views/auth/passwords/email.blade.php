@@ -45,7 +45,4 @@
         </div>
 
     </div>
-    <div class="logo_container">
-        <img src="{{ asset('img/logo/logo_osfrecouvrement.svg') }}" alt="">
-    </div>
 @endsection
