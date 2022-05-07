@@ -7,8 +7,9 @@ Personal project done to validate my master 2. 🏫 This Laravel VueJS project i
 The project is currently deployed as V1️. Users are able to log in, edit their information, search and interact with each other through a like and playlist system.
 
 ### Project Screen Shot(s) 📸
-
-WIP
+<p align="center">
+<img width="620" alt="CleanShot 2022-05-06 at 19 41 24@2x" src="https://user-images.githubusercontent.com/48626779/167185874-22a1370d-557d-4336-9658-6fdcef10aaf6.png"><img width="200" alt="CleanShot 2022-05-06 at 19 41 00@2x" src="https://user-images.githubusercontent.com/48626779/167186046-fd9dbc3d-d881-40e1-a822-8a8ca1c8754a.png">
+<p>
 
 ### Installation 🤖
 
