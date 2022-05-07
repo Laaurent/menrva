@@ -81,7 +81,6 @@ export default {
          }
       },
       searchUsers(event) {
-         console.log(event);
          window.location = `/rechercher?pattern=${event.pattern}&place=${event.place}`;
       },
       async updateLike(event) {

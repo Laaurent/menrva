@@ -29,7 +29,7 @@
                <IconComponent v-if="!liked" type="like" color="primary"></IconComponent>
                <IconComponent v-else type="liked" color="primary"></IconComponent>
             </button>
-            <form v-if="editable" class="input-form">
+            <form v-if="editable && user_log" class="input-form">
                <select
                   v-model="playlist_tmp"
                   class="myinput px-1 !rounded-full !w-10"

@@ -233,16 +233,13 @@ export default {
             }
             if (type == "formation") {
                result = await axios.post(`/formation/store`, this.form.formation);
-               //! A FIX
                const formation_tmp = { ...this.form.formation };
                this.formations_data.push(formation_tmp);
                this.resetFormation();
             }
             if (type == "experience") {
                result = await axios.post(`/experience/store`, this.form.experience);
-               //! A FIX
                const experience_tmp = { ...this.form.experience };
-               console.log(experience_tmp);
                this.experiences_data.push(experience_tmp);
                this.resetExperience();
             }

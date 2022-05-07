@@ -69,7 +69,6 @@ export default {
       };
    },
    mounted() {
-      console.log("t", this.pattern_text);
       this.keywords = this.pattern_text;
       this.place = this.place_text;
    },
