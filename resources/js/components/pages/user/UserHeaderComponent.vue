@@ -181,7 +181,7 @@ export default {
          formData.append("city_department", this.form.city_department ? this.form.city_department : "");
 
          try {
-            const result = await axios.post(`/user/${this.id}/update/`, formData);
+            const result = await axios.post(`/user/${this.id}/update`, formData);
             this.loading = false;
             this.edit = false;
          } catch (error) {

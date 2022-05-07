@@ -228,7 +228,7 @@ export default {
          try {
             let result = null;
             if (type == "resume") {
-               result = await axios.post(`/user/${this.id}/update/`, form);
+               result = await axios.post(`/user/${this.id}/update`, form);
                this.edit = false;
             }
             if (type == "formation") {
@@ -253,11 +253,11 @@ export default {
          let result = null;
          try {
             if (type == "experience") {
-               result = await axios.post(`/experience/delete/`, { id: id });
+               result = await axios.post(`/experience/delete`, { id: id });
                this.experiences_data = this.experiences_data.splice(index, 1);
             }
             if (type == "formation") {
-               result = await axios.post(`/formation/delete/`, { id: id });
+               result = await axios.post(`/formation/delete`, { id: id });
                this.formations_data = this.formations_data.splice(index, 1);
             }
             this.loading = false;

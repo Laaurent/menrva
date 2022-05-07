@@ -113,7 +113,7 @@ export default {
          try {
             let result = null;
             if (event) {
-               result = await axios.post(`/likes/`, { user_id: this.user_id });
+               result = await axios.post(`/likes`, { user_id: this.user_id });
             } else {
                result = await axios.post(`/likes/delete`, { user_id: this.user_id });
             }

@@ -144,7 +144,7 @@ export default {
          try {
             let result = null;
             if (event.liked) {
-               result = await axios.post(`/likes/`, { user_id: event.user_id });
+               result = await axios.post(`/likes`, { user_id: event.user_id });
             } else {
                result = await axios.post(`/likes/delete`, { user_id: event.user_id });
             }
