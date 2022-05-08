@@ -27,19 +27,9 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePlaylistRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function store()
     {
@@ -49,28 +39,6 @@ class PlaylistController extends Controller
         ]);
 
         return response()->json($playlist);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Playlist  $playlist
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Playlist $playlist)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Playlist  $playlist
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Playlist $playlist)
-    {
-        //
     }
 
     /**

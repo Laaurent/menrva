@@ -17,7 +17,7 @@ class IsProfessionnal
      */
     public function handle(Request $request, Closure $next)
     {
-
+        // We check if the user logged is a professionnal. If isn't we redirect to the home
         if (Auth::user()->user_type_id == 1) {
             return redirect(route('home'));
         }

@@ -10,13 +10,24 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
 
-    // RELATE TO PROFIL PAGE
+    /**
+     * Return the profil of user
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function index($id = null)
     {
         $user_id = $id == null && Auth::check() ?  Auth::id() : $id;
         return view('pages.user.user', compact('user_id'));
     }
 
+    /**
+     * Return all users
+     *
+     * @param Request $request
+     * @return void
+     */
     public function all(Request $request)
     {
         $users = User::when(isset($request->pattern), function ($query) use ($request) {
@@ -43,7 +54,12 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    //READ USER INFORMATIONS BY ID
+    /**
+     * return the specific ressource
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function read($id)
     {
         $user = User::where('id', $id)->with(['formations', 'experiences'])->firstOrFail();
@@ -51,7 +67,13 @@ class UserController extends Controller
         return $user;
     }
 
-    //UPDATE INFORMATIONS FROM PROFIL
+    /**
+     * Update the specific ressource
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function update(Request $request, $id)
     {
         $data = $request->all();
@@ -78,7 +100,11 @@ class UserController extends Controller
         return $success;
     }
 
-    // CHECK IF THE USER IS LOG AND RETURN IT
+    /**
+     * Check if the user is logged ( useless )
+     *
+     * @return void
+     */
     public function auth()
     {
         $user = Auth::user();

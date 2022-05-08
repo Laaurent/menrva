@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /**
+     * Log the user 
+     *
+     * @param Request $request
+     * @return void
+     */
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');

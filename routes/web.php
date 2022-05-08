@@ -19,13 +19,11 @@ use App\Http\Controllers\PlaylistController;
 |
 */
 
+// VIEW URLS
 Route::view('/', 'welcome')->name('home');
 Route::view('/rechercher', 'home')->name('search');
 
-
-// A DELETE
-
-// USER
+// USER without auth
 Route::get('/user/{id}', [UserController::class, 'read'])->name('user.read');
 Route::post('/users/all', [UserController::class, 'all'])->name('user.all');
 Route::get('/users/suggestions/{id}', [UserController::class, 'suggestions'])->name('user.suggestion');
@@ -35,19 +33,20 @@ Route::get('/users/lastformation', [UserController::class, 'lastFormation'])->na
 Route::group(
     ['middleware' => 'auth'],
     function () {
+        
+        //VEIW URL
         Route::view('/mes-listes', 'pages.likes.index')->name('my-list')->middleware('is_professionnal');
 
-        //USER
-
+        //USERS
         Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::get('/user/auth', [UserController::class, 'auth'])->name('user.auth');
 
 
-        // FORMATION
+        // FORMATIONS
         Route::post('/formation/store', [FormationController::class, 'store'])->name('formation.store');
         Route::post('/formation/delete', [FormationController::class, 'destroy'])->name('formation.delete');
 
-        // EXPERIENCE
+        // EXPERIENCES
         Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
         Route::post('/experience/delete', [ExperienceController::class, 'destroy'])->name('experience.delete');
 
@@ -63,16 +62,8 @@ Route::group(
         Route::delete('/playlists/{id}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
         Route::put('/playlists/{id}', [PlaylistController::class, 'update'])->name('playlists.update');
 
-        Route::get('/parametres', function () {
-            return view('home');
-        })->name('settings');
     }
 );
-
-
-/* Route::get('test', function () {
-    return 'Vue de test';
-})->middleware(['auth', 'password.confirm']); */
 
 /**
  * 
@@ -81,6 +72,6 @@ Route::group(
  * -------------------------------
  *
  */
-Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+/* Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend'); */

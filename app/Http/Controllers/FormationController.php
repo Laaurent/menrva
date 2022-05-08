@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class FormationController extends Controller
 {
-    //STORE A NEW FORMATION
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
 
@@ -19,7 +24,12 @@ class FormationController extends Controller
         $formation = Formation::create($request->toArray());
         return $formation;
     }
-    //DELETE A FORMATION
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function destroy(Request $request)
     {
         $formation = Formation::destroy($request->id);

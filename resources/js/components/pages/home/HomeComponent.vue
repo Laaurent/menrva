@@ -25,6 +25,7 @@
          <div v-if="users.data.length == 0" class="flex flex-col justify-center items-center gap-2 py-4 h-96">
             <p class="text-mydarkgrey font-medium text-sm">Aucun utilisateur...</p>
          </div>
+         <!-- FULL STATE -->
          <div class="flex flex-col xl:flex-row xl:flex-wrap items-center justify-center gap-2 w-full" v-else>
             <HomeUserCardComponent
                class="w-full"
@@ -36,6 +37,7 @@
                @update:like="updateLike($event)"
             ></HomeUserCardComponent>
          </div>
+         <!-- PAGINATION -->
          <article v-if="users.data.length > 0" class="flex justify-center xl:justify-end py-4">
             <PaginationComponent :last_page="users.last_page" :page="users.page" @page:update="getAllUsers($event)"></PaginationComponent>
          </article>

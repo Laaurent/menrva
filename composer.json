@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "Menrva",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Recrutement website",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
